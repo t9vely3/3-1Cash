@@ -38,18 +38,16 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .proc-tab.active .dur { color: #D8D3C8; }
 .proc-empty { font-size: 12px; color: #8C8A82; padding: 8px 4px; font-weight: 400; }
 
-.course-list { max-height: 340px; overflow-y: auto; border: 0.5px solid #E5E2D9; }
+.course-list { max-height: 360px; overflow-y: auto; border: 0.5px solid #E5E2D9; }
 .course-list::-webkit-scrollbar { width: 6px; }
 .course-list::-webkit-scrollbar-thumb { background: #D8D3C8; }
-.course-item { display: flex; align-items: center; padding: 11px 14px; border-bottom: 0.5px solid #EDEAE0; cursor: pointer; gap: 11px; user-select: none; transition: background 0.1s; }
+.course-item { display: flex; align-items: center; padding: 14px 16px; border-bottom: 0.5px solid #EDEAE0; cursor: pointer; gap: 12px; user-select: none; transition: background 0.1s; }
 .course-item:last-child { border-bottom: none; }
-.course-item:hover { background: #F9F7F0; }
-.course-item.selected { background: #FFF8E1; }
-.course-item .check { width: 14px; height: 14px; border: 1px solid #B4B0A6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-.course-item.selected .check { background: #1A1A1A; border-color: #1A1A1A; }
-.course-item.selected .check::after { content: '✓'; color: #FFFFFF; font-size: 10px; line-height: 1; font-weight: 700; }
-.course-item .cname { font-size: 13px; flex: 1; font-weight: 500; color: #1A1A1A; }
-.course-item .cfee { font-size: 12px; color: #6B6862; font-variant-numeric: tabular-nums; min-width: 60px; text-align: right; font-weight: 400; }
+.course-item:hover { background: #F5EEDC; }
+.course-item:hover .plus { background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A; }
+.course-item .plus { width: 22px; height: 22px; border: 1px solid #B4B0A6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; line-height: 1; font-weight: 400; color: #4A4843; background: #FFFFFF; border-radius: 3px; transition: all 0.15s; }
+.course-item .cname { font-size: 13.5px; flex: 1; font-weight: 500; color: #1A1A1A; }
+.course-item .cfee { font-size: 12px; color: #4A4843; font-variant-numeric: tabular-nums; min-width: 64px; text-align: right; font-weight: 500; }
 
 .bulk-add { width: 100%; padding: 10px; margin-top: 10px; background: transparent; border: 0.5px dashed #B4B0A6; font-size: 12px; color: #4A4843; cursor: pointer; font-family: inherit; font-weight: 500; letter-spacing: 0.3px; transition: all 0.15s; }
 .bulk-add:hover { border-color: #1A1A1A; color: #1A1A1A; background: #F9F7F0; }
@@ -80,39 +78,46 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .preview-wrap { padding: 48px 40px; overflow-y: auto; max-height: 100vh; }
 .preview-wrap::-webkit-scrollbar { width: 8px; }
 .preview-wrap::-webkit-scrollbar-thumb { background: #B4B0A6; }
-.quotation { background: #FFFFFF; padding: 72px 76px; max-width: 840px; margin: 0 auto; color: #0F0F0F; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08); font-weight: 400; }
+.quotation { background: #FFFFFF; padding: 68px 70px; max-width: 840px; margin: 0 auto; color: #0F0F0F; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08); font-weight: 400; }
 
-.q-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+.q-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 44px; padding-bottom: 26px; border-bottom: 2.5px solid #0F0F0F; position: relative; }
+.q-header::after { content: ''; position: absolute; left: 0; bottom: -2.5px; width: 80px; height: 2.5px; background: #B8860B; }
 .q-title-wrap { }
-.q-title { font-size: 14px; font-weight: 700; letter-spacing: 4px; color: #0F0F0F; text-transform: uppercase; }
-.q-brand { font-size: 10px; letter-spacing: 1.8px; color: #4A4843; margin-top: 14px; font-weight: 500; }
-.q-meta { text-align: right; font-size: 11px; color: #1F1F1F; line-height: 2.1; letter-spacing: 0.2px; font-weight: 400; }
-.q-meta .mk { color: #6B6862; display: inline-block; width: 50px; font-weight: 500; }
+.q-title { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; color: #0F0F0F; }
+.q-title .sub { display: block; font-size: 11px; font-weight: 600; letter-spacing: 3px; color: #B8860B; margin-top: 2px; text-transform: uppercase; }
+.q-brand { font-size: 10px; letter-spacing: 1.5px; color: #4A4843; margin-top: 12px; font-weight: 500; }
+.q-meta { text-align: right; font-size: 11px; color: #1F1F1F; line-height: 2.1; letter-spacing: 0.2px; font-weight: 500; }
+.q-meta .mk { color: #8C8A82; display: inline-block; width: 56px; font-weight: 600; font-size: 9px; letter-spacing: 1px; }
 
-.q-info { display: grid; grid-template-columns: 1.4fr 2fr 0.9fr; gap: 36px; padding: 26px 0 32px; border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #C4BFB4; margin-bottom: 36px; }
-.q-info-item .label { font-size: 10px; letter-spacing: 1.5px; color: #6B6862; text-transform: uppercase; font-weight: 700; }
-.q-info-item .value { font-size: 15px; margin-top: 8px; letter-spacing: -0.2px; color: #0F0F0F; font-weight: 500; }
+.q-info { display: grid; grid-template-columns: 1.2fr 2fr 0.8fr; gap: 32px; padding: 22px 24px; margin-bottom: 36px; background: #FBF9F0; border-left: 3px solid #B8860B; }
+.q-info-item .label { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; }
+.q-info-item .value { font-size: 16px; margin-top: 6px; letter-spacing: -0.2px; color: #0F0F0F; font-weight: 600; }
 
-.q-section { font-size: 10px; letter-spacing: 1.8px; color: #4A4843; margin: 0 0 14px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
+.q-section { font-size: 11px; letter-spacing: 0.5px; color: #0F0F0F; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
 .q-section .hint { font-size: 10px; color: #6B6862; letter-spacing: 0.3px; text-transform: none; font-weight: 400; }
 
 .q-table { width: 100%; font-size: 13px; border-collapse: collapse; font-weight: 400; }
 .q-table thead tr { border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #6B6862; }
-.q-table th { text-align: left; padding: 12px 0; font-weight: 700; font-size: 10px; letter-spacing: 1.3px; color: #4A4843; text-transform: uppercase; }
+.q-table th { text-align: left; padding: 12px 0; font-weight: 700; font-size: 11px; letter-spacing: 0.5px; color: #4A4843; }
 .q-table th.right { text-align: right; }
+.q-table th.hdrag { width: 22px; padding-left: 2px; }
 .q-row { cursor: default; transition: background 0.1s; }
 .q-row.clickable { cursor: pointer; }
-.q-row.clickable:hover td { background: #FFF4D6; }
-.q-row td { padding: 12px 0; border-bottom: 0.5px solid #D8D3C8; }
-.q-row td.no { color: #6B6862; width: 36px; font-variant-numeric: tabular-nums; font-size: 11px; padding-left: 2px; font-weight: 500; }
-.q-row td.sub { font-weight: 500; color: #0F0F0F; }
+.q-row.clickable:hover td { background: #FFF8E1; }
+.q-row.dragging { opacity: 0.4; }
+.q-row.drag-over td { border-top: 2px solid #0F0F0F !important; }
+.q-row td { padding: 12px 0; border-bottom: 0.5px solid #E5E2D9; }
+.q-row td.drag { width: 22px; padding-left: 2px; color: #C4BFB4; font-size: 11px; cursor: grab; text-align: center; user-select: none; letter-spacing: -1px; }
+.q-row td.drag:hover { color: #0F0F0F; }
+.q-row td.no { color: #6B6862; width: 40px; font-variant-numeric: tabular-nums; font-size: 12px; padding-left: 2px; font-weight: 500; }
+.q-row td.sub { font-weight: 600; color: #0F0F0F; font-size: 13.5px; }
 .q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; }
-.q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 500; }
+.q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 600; font-size: 13.5px; }
 .q-row td.fee.free { color: #9C6F00; font-size: 12px; letter-spacing: 0.3px; font-weight: 700; }
 .q-row.last td { border-bottom: 1.5px solid #0F0F0F; }
-.q-row .x-btn { display: inline-block; width: 16px; height: 16px; line-height: 14px; text-align: center; color: #8C8A82; font-size: 14px; cursor: pointer; margin-left: 6px; vertical-align: middle; opacity: 0; transition: opacity 0.15s; font-weight: 400; }
+.q-row .x-btn { display: inline-block; width: 18px; height: 18px; line-height: 16px; text-align: center; color: #8C8A82; font-size: 15px; cursor: pointer; margin-left: 8px; vertical-align: middle; opacity: 0; transition: opacity 0.15s; font-weight: 400; border-radius: 3px; }
 .q-row:hover .x-btn { opacity: 1; }
-.q-row .x-btn:hover { color: #C00; }
+.q-row .x-btn:hover { color: #FFFFFF; background: #C00; }
 
 .q-calc { margin-top: 24px; display: flex; justify-content: flex-end; }
 .q-calc-box { width: 360px; }
@@ -139,24 +144,25 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-total-amount .won { font-size: 13px; color: #6B6862; font-weight: 500; margin-left: 4px; }
 
 /* 학원 안내 섹션 */
-.q-policies { margin-top: 56px; padding-top: 28px; border-top: 1.5px solid #0F0F0F; }
+.q-policies { margin-top: 44px; padding-top: 26px; border-top: 1.5px solid #0F0F0F; }
 
 /* 프로모션 박스 */
-.q-promotions-box { margin-top: 36px; padding: 20px 24px; background: #FBF9F0; border: 0.5px solid #C4BFB4; border-left: 3px solid #9C6F00; }
-.q-promotions-title { font-size: 10px; letter-spacing: 1.5px; color: #9C6F00; font-weight: 700; text-transform: uppercase; margin-bottom: 14px; }
-.q-promo-item { padding: 8px 0; border-bottom: 0.5px dashed #D8D3C8; }
+.q-promotions-box { margin-top: 32px; padding: 20px 24px; background: #FFF8E1; border-left: 3px solid #B8860B; }
+.q-promotions-title { font-size: 11px; letter-spacing: 0.5px; color: #9C6F00; font-weight: 700; margin-bottom: 14px; }
+.q-promo-item { padding: 10px 0; border-bottom: 0.5px dashed #D8B85C; }
 .q-promo-item:last-child { border-bottom: none; padding-bottom: 0; }
 .q-promo-item:first-child { padding-top: 0; }
-.q-promo-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
-.q-promo-name { font-size: 12px; font-weight: 600; color: #0F0F0F; }
-.q-promo-deadline { font-size: 10px; color: #9C6F00; font-weight: 500; font-variant-numeric: tabular-nums; }
-.q-promo-desc { font-size: 10.5px; color: #4A4843; line-height: 1.6; font-weight: 400; }
-.q-policy-block { margin-bottom: 32px; }
+.q-promo-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.q-promo-name { font-size: 13px; font-weight: 700; color: #0F0F0F; }
+.q-promo-deadline { font-size: 10px; color: #9C6F00; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.3px; }
+.q-promo-desc { font-size: 11px; color: #4A4843; line-height: 1.7; font-weight: 400; }
+
+.q-policy-block { margin-bottom: 24px; }
 .q-policy-block:last-child { margin-bottom: 0; }
-.q-policy-title { font-size: 11px; letter-spacing: 1.5px; color: #0F0F0F; font-weight: 700; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 0.5px solid #0F0F0F; }
+.q-policy-title { font-size: 11px; letter-spacing: 0.5px; color: #0F0F0F; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 0.5px solid #0F0F0F; }
 .q-policy-list { list-style: none; padding: 0; margin: 0; }
-.q-policy-list li { font-size: 11.5px; color: #1F1F1F; line-height: 1.8; padding: 6px 0 6px 22px; position: relative; font-weight: 400; letter-spacing: 0.1px; white-space: nowrap; }
-.q-policy-list li .n { position: absolute; left: 0; color: #6B6862; font-weight: 500; font-variant-numeric: tabular-nums; }
+.q-policy-list li { font-size: 11.5px; color: #1F1F1F; line-height: 1.8; padding: 4px 0 4px 24px; position: relative; font-weight: 400; letter-spacing: 0.1px; white-space: nowrap; }
+.q-policy-list li .n { position: absolute; left: 0; color: #8C8A82; font-weight: 600; font-variant-numeric: tabular-nums; }
 .q-policy-list li.warn { color: #9C2626; }
 .q-policy-list li.warn .n { color: #9C2626; }
 
@@ -222,44 +228,35 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 
 @page {
   size: A4;
-  margin: 10mm 10mm;
+  margin: 0;
 }
 @media print {
   body { background: white; }
   .panel { display: none; }
-  .app { grid-template-columns: 1fr; }
+  .app { grid-template-columns: 1fr; display: block; }
   .preview-wrap { padding: 0; max-height: none; overflow: visible; }
-  .quotation { box-shadow: none; max-width: 100%; padding: 16mm 14mm; }
+  .quotation { box-shadow: none; max-width: 100%; }
   .q-row .x-btn { display: none; }
-  /* prevent mid-row page breaks */
   .q-row, .q-addon, .q-policy-list li { page-break-inside: avoid; break-inside: avoid; }
-  .q-policies, .q-total, .q-addons, .q-promotions-box { page-break-inside: avoid; break-inside: avoid; }
 }
-/* 압축 인쇄 모드 - 한 장에 맞추기 위한 밀도 증가 */
-body.compact-print .quotation { padding: 10mm 10mm; }
-body.compact-print .q-header { margin-bottom: 20px; }
-body.compact-print .q-title { font-size: 12px; }
-body.compact-print .q-info { padding: 14px 0 16px; margin-bottom: 18px; gap: 24px; }
-body.compact-print .q-info-item .value { font-size: 13px; margin-top: 4px; }
-body.compact-print .q-section { margin-bottom: 8px; font-size: 9px; }
-body.compact-print .q-table { font-size: 11px; }
-body.compact-print .q-table th { padding: 7px 0; font-size: 9px; }
-body.compact-print .q-row td { padding: 5px 0; }
-body.compact-print .q-row td.desc { font-size: 10px; }
-body.compact-print .q-row td.fee { font-size: 11px; }
-body.compact-print .q-calc { margin-top: 12px; }
-body.compact-print .q-calc-row { padding: 4px 0; font-size: 11px; }
-body.compact-print .q-calc-row.line .lbl, body.compact-print .q-calc-row.line .val { font-size: 12px; }
-body.compact-print .q-addons { margin-top: 18px; }
-body.compact-print .q-addon { padding: 7px 0; }
-body.compact-print .q-promotions-box { margin-top: 18px; padding: 12px 14px; }
-body.compact-print .q-promo-item { padding: 5px 0; font-size: 10px; }
-body.compact-print .q-total { margin-top: 18px; padding-top: 14px; }
-body.compact-print .q-total-amount { font-size: 22px; }
-body.compact-print .q-policies { margin-top: 22px; padding-top: 14px; }
-body.compact-print .q-policy-block { margin-bottom: 16px; }
-body.compact-print .q-policy-title { font-size: 10px; margin-bottom: 8px; padding-bottom: 6px; }
-body.compact-print .q-policy-list li { font-size: 10px; padding: 3px 0 3px 20px; line-height: 1.5; }
+/* fit-to-one-page 모드: A4 한장에 강제로 맞춤 (엑셀 "페이지에 맞춤"과 동일 원리) */
+body.fit-one-page { background: #FFFFFF; }
+body.fit-one-page .panel { display: none; }
+body.fit-one-page .app { display: block; }
+body.fit-one-page .preview-wrap { padding: 0; max-height: none; overflow: visible; }
+body.fit-one-page .quotation {
+  box-shadow: none;
+  width: 210mm;
+  min-height: 297mm;
+  max-width: 210mm;
+  padding: 14mm 16mm;
+  margin: 0;
+  transform-origin: top left;
+}
+body.fit-one-page .q-row .x-btn { display: none; }
+@media print {
+  body.fit-one-page .quotation { page-break-after: avoid; }
+}
 </style>
 </head>
 <body>
@@ -299,7 +296,6 @@ body.compact-print .q-policy-list li { font-size: 10px; padding: 3px 0 3px 20px;
       <button class="mode-tab active" data-mode="free">N+N 무료과목</button>
       <button class="mode-tab" data-mode="percent">% 할인</button>
     </div>
-    <div class="mode-hint" id="modeHint">우측 견적서에서 과목을 클릭하면 그 과목이 "지원"으로 전환됩니다.</div>
 
     <div id="percentField" style="display:none;">
       <div class="field">
@@ -321,7 +317,7 @@ body.compact-print .q-policy-list li { font-size: 10px; padding: 3px 0 3px 20px;
       <button class="btn btn-primary" onclick="printNormal()">PDF 저장</button>
     </div>
     <div class="actions-row2">
-      <button class="btn btn-secondary" style="font-size:11px;" onclick="printCompact()">📄 한 장 압축 인쇄</button>
+      <button class="btn btn-secondary" style="font-size:11px;" onclick="printFitOnePage()">📄 한 장에 강제로 맞춤</button>
       <button class="btn btn-secondary" style="font-size:11px;" onclick="openMaster()">⚙ 마스터 편집</button>
     </div>
   </aside>
@@ -418,7 +414,7 @@ let MASTER = null;
 let state = {
   selectedDept: null,
   selectedProc: null,
-  selected: {},
+  selected: [],
   discountMode: 'free',
   percent: 0,
   direct: 0,
@@ -430,6 +426,7 @@ let state = {
   masterEditProc: null,
   compactPrint: false,
 };
+let nextSelId = 1;
 
 // ============ DATA LOAD + MIGRATION ============
 function migrate(data) {
@@ -495,15 +492,27 @@ function findCourseDeep(courseId) {
   }
   return null;
 }
+function findExistingCourse(subjectName, excludeId) {
+  if (!subjectName) return null;
+  const norm = subjectName.trim().toLowerCase();
+  for (const d of MASTER.departments) {
+    for (const p of d.processes) {
+      for (const c of p.courses) {
+        if (c.id === excludeId) continue;
+        if ((c.subject||'').trim().toLowerCase() === norm) return c;
+      }
+    }
+  }
+  return null;
+}
 function getCurrentDept() { return MASTER.departments.find(d => d.id === state.selectedDept); }
 function getCurrentProc() {
   const d = getCurrentDept();
   return d ? d.processes.find(p => p.id === state.selectedProc) : null;
 }
 function getSelectedProcessSummary() {
-  // return list of {dept, proc} pairs that have at least one selected course
   const map = new Map();
-  Object.values(state.selected).forEach(s => {
+  state.selected.forEach(s => {
     const key = s.deptId + '|' + s.procId;
     if (!map.has(key)) {
       const d = MASTER.departments.find(x => x.id === s.deptId);
@@ -556,37 +565,45 @@ function renderCourseList() {
     return;
   }
   proc.courses.forEach(c => {
-    const sel = state.selected[c.id];
     const item = document.createElement('div');
-    item.className = 'course-item' + (sel ? ' selected' : '');
-    item.innerHTML = `<div class="check"></div><span class="cname">${c.subject}</span><span class="cfee">${fmt(c.fee)}</span>`;
-    item.onclick = () => toggleCourse(c.id);
+    item.className = 'course-item';
+    item.innerHTML = `<div class="plus">+</div><span class="cname">${c.subject}</span><span class="cfee">${fmt(c.fee)}</span>`;
+    item.onclick = () => addCourse(c.id);
     el.appendChild(item);
   });
 }
-function toggleCourse(courseId) {
-  if (state.selected[courseId]) {
-    delete state.selected[courseId];
-  } else {
-    const found = findCourseDeep(courseId);
-    if (!found) return;
-    state.selected[courseId] = {
-      course: found.course,
-      free: false,
-      deptId: found.dept.id,
-      procId: found.proc.id,
-    };
-  }
+function addCourse(courseId) {
+  const found = findCourseDeep(courseId);
+  if (!found) return;
+  state.selected.push({
+    selId: nextSelId++,
+    course: {...found.course},
+    free: false,
+    deptId: found.dept.id,
+    procId: found.proc.id,
+  });
   render();
+}
+function removeCourse(selId) {
+  state.selected = state.selected.filter(s => s.selId !== selId);
+  render();
+}
+function toggleFree(selId) {
+  const item = state.selected.find(s => s.selId === selId);
+  if (item) { item.free = !item.free; render(); }
 }
 function bulkAddCurrentProcess() {
   const proc = getCurrentProc();
   const dept = getCurrentDept();
   if (!proc || !dept) return;
   proc.courses.forEach(c => {
-    if (!state.selected[c.id]) {
-      state.selected[c.id] = { course: c, free: false, deptId: dept.id, procId: proc.id };
-    }
+    state.selected.push({
+      selId: nextSelId++,
+      course: {...c},
+      free: false,
+      deptId: dept.id,
+      procId: proc.id,
+    });
   });
   render();
   toast(`${proc.name} 과정 ${proc.courses.length}과목 추가됨`);
@@ -655,7 +672,7 @@ function renderPromoPanel() {
 
 // ============ CALC + PREVIEW ============
 function calc() {
-  const items = Object.values(state.selected);
+  const items = state.selected;
   const subtotal = items.reduce((s, i) => s + Number(i.course.fee), 0);
   let freeAmount = 0;
   let percentAmount = 0;
@@ -694,7 +711,7 @@ function renderPreview() {
 
   let rowsHtml = '';
   if (r.items.length === 0) {
-    rowsHtml = `<tr><td colspan="4" style="padding:40px 0; text-align:center; color:#A8A49C; font-size:12px; border-bottom:0.5px solid #E8E3D6;">왼쪽에서 과목을 선택해 주세요</td></tr>`;
+    rowsHtml = `<tr><td colspan="5" style="padding:40px 0; text-align:center; color:#A8A49C; font-size:12px; border-bottom:0.5px solid #E8E3D6;">왼쪽에서 과목을 선택해 주세요</td></tr>`;
   } else {
     r.items.forEach((it, i) => {
       const num = String(i+1).padStart(2,'0');
@@ -702,8 +719,7 @@ function renderPreview() {
       const feeCell = isFree ? `<td class="fee free">무료지원</td>` : `<td class="fee">${fmt(it.course.fee)}</td>`;
       const lastClass = i === r.items.length-1 ? 'last' : '';
       const clickable = state.discountMode === 'free' ? 'clickable' : '';
-      const title = state.discountMode === 'free' ? 'title="클릭하여 무료/유료 전환"' : '';
-      rowsHtml += `<tr class="q-row ${clickable} ${lastClass}" data-cid="${it.course.id}" ${title}><td class="no">${num}</td><td class="sub">${it.course.subject} <span class="x-btn" data-remove="${it.course.id}">×</span></td><td class="desc">${(it.course.desc||'').slice(0,32)}</td>${feeCell}</tr>`;
+      rowsHtml += `<tr class="q-row ${clickable} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${it.course.subject}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${(it.course.desc||'').slice(0,40)}</td>${feeCell}</tr>`;
     });
   }
 
@@ -749,7 +765,6 @@ function renderPreview() {
   }
 
   const totalDiscount = r.freeAmount + r.percentAmount + r.direct;
-  const sectionHint = state.discountMode === 'free' && r.items.length > 0 ? '<span class="hint">과목 클릭 → 무료 전환</span>' : '';
 
   // 안내/등록방법 데이터에서 렌더
   const guideItems = (MASTER.policies?.guide || []).map((p, i) =>
@@ -762,23 +777,23 @@ function renderPreview() {
   document.getElementById('quotation').innerHTML = `
     <div class="q-header">
       <div class="q-title-wrap">
-        <div class="q-title">Quotation</div>
+        <div class="q-title">수강 견적서<span class="sub">Quotation</span></div>
         <div class="q-brand">SBS ACADEMY COMPUTER ART — HONGDAE</div>
       </div>
       <div class="q-meta">
-        <div><span class="mk">No.</span>${docNo}</div>
-        <div><span class="mk">Date</span>${dateStr}</div>
-        <div><span class="mk">Mentor</span>${meta.mentor || '—'}</div>
+        <div><span class="mk">NO.</span>${docNo}</div>
+        <div><span class="mk">DATE</span>${dateStr}</div>
+        <div><span class="mk">MENTOR</span>${meta.mentor || '—'}</div>
       </div>
     </div>
     <div class="q-info">
-      <div class="q-info-item"><div class="label">Student</div><div class="value">${meta.student || '—'}</div></div>
-      <div class="q-info-item"><div class="label">Program</div><div class="value">${programDisplay}</div></div>
-      <div class="q-info-item"><div class="label">Courses</div><div class="value">${r.items.length}</div></div>
+      <div class="q-info-item"><div class="label">수강생</div><div class="value">${meta.student || '—'}</div></div>
+      <div class="q-info-item"><div class="label">프로그램</div><div class="value">${programDisplay}</div></div>
+      <div class="q-info-item"><div class="label">과목 수</div><div class="value">${r.items.length}</div></div>
     </div>
-    <div class="q-section"><span>Curriculum</span>${sectionHint}</div>
+    <div class="q-section"><span>수강 과목</span></div>
     <table class="q-table">
-      <thead><tr><th>No.</th><th>Subject</th><th>Description</th><th class="right">Fee (KRW)</th></tr></thead>
+      <thead><tr><th class="hdrag"></th><th>번호</th><th>과목명</th><th>세부 내용</th><th class="right">수강료</th></tr></thead>
       <tbody id="qBody">${rowsHtml}</tbody>
     </table>
     <div class="q-calc">${calcHtml}</div>
@@ -786,7 +801,7 @@ function renderPreview() {
     ${promoHtml}
     <div class="q-total">
       <div>
-        <div class="q-total-label">Total Due</div>
+        <div class="q-total-label">최종 납부액</div>
         <div class="q-total-sub">원 수강료 ${fmt(r.subtotal)} &nbsp;·&nbsp; 총 할인 ${fmt(totalDiscount)}${r.addonTotal>0 ? ' &nbsp;·&nbsp; 별도판매 '+fmt(r.addonTotal) : ''}</div>
       </div>
       <div class="q-total-amount"><span class="cur">KRW</span>${fmt(r.finalTotal)}<span class="won">원</span></div>
@@ -803,20 +818,44 @@ function renderPreview() {
     </div>
   `;
 
-  // Wire up clicks on quotation rows
+  // Wire up clicks + drag on quotation rows
+  let dragSrc = null;
   document.querySelectorAll('#qBody .q-row').forEach(tr => {
     tr.onclick = (e) => {
       if (e.target.dataset.remove) {
-        delete state.selected[e.target.dataset.remove];
-        render();
+        removeCourse(Number(e.target.dataset.remove));
         return;
       }
       if (state.discountMode !== 'free') return;
-      const cid = tr.dataset.cid;
-      if (state.selected[cid]) {
-        state.selected[cid].free = !state.selected[cid].free;
-        render();
-      }
+      const sid = Number(tr.dataset.sid);
+      toggleFree(sid);
+    };
+    tr.ondragstart = (e) => {
+      dragSrc = Number(tr.dataset.sid);
+      tr.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    };
+    tr.ondragend = () => {
+      tr.classList.remove('dragging');
+      document.querySelectorAll('#qBody .q-row').forEach(t => t.classList.remove('drag-over'));
+    };
+    tr.ondragover = (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      document.querySelectorAll('#qBody .q-row').forEach(t => t.classList.remove('drag-over'));
+      tr.classList.add('drag-over');
+    };
+    tr.ondrop = (e) => {
+      e.preventDefault();
+      const targetSid = Number(tr.dataset.sid);
+      if (dragSrc == null || dragSrc === targetSid) return;
+      const srcIdx = state.selected.findIndex(s => s.selId === dragSrc);
+      const tgtIdx = state.selected.findIndex(s => s.selId === targetSid);
+      if (srcIdx < 0 || tgtIdx < 0) return;
+      const [moved] = state.selected.splice(srcIdx, 1);
+      state.selected.splice(tgtIdx, 0, moved);
+      dragSrc = null;
+      render();
     };
   });
 }
@@ -836,11 +875,8 @@ document.querySelectorAll('.mode-tab').forEach(b => {
     state.discountMode = b.dataset.mode;
     document.querySelectorAll('.mode-tab').forEach(x => x.classList.toggle('active', x.dataset.mode === state.discountMode));
     document.getElementById('percentField').style.display = state.discountMode === 'percent' ? 'block' : 'none';
-    document.getElementById('modeHint').textContent = state.discountMode === 'free'
-      ? '우측 견적서에서 과목을 클릭하면 그 과목이 "지원"으로 전환됩니다.'
-      : '전체 합계에서 입력한 % 만큼 차감됩니다.';
     if (state.discountMode === 'percent') {
-      Object.values(state.selected).forEach(s => s.free = false);
+      state.selected.forEach(s => s.free = false);
     }
     render();
   };
@@ -856,10 +892,11 @@ document.getElementById('acpSelect').onchange = e => { state.acp = e.target.valu
 
 function resetAll() {
   if (!confirm('모든 입력을 초기화할까요? (마스터 데이터는 유지됩니다)')) return;
-  state.selected = {};
+  state.selected = [];
   state.percent = 0; state.direct = 0;
   state.ddajua = ''; state.acp = '';
   state.discountMode = 'free';
+  state.promotions = [];
   document.getElementById('student').value = '';
   document.getElementById('program').value = '';
   document.getElementById('percentInput').value = 0;
@@ -880,17 +917,19 @@ function openMaster() {
 function closeMaster() {
   document.getElementById('masterModal').classList.remove('show');
   saveMaster();
-  // re-link selected courses to master in case fees changed
-  Object.keys(state.selected).forEach(cid => {
-    const found = findCourseDeep(cid);
+  // re-link selected courses to master (fees may have changed). Match by course id.
+  state.selected = state.selected.map(sel => {
+    const found = findCourseDeep(sel.course.id);
     if (found) {
-      state.selected[cid].course = found.course;
-      state.selected[cid].deptId = found.dept.id;
-      state.selected[cid].procId = found.proc.id;
-    } else {
-      delete state.selected[cid];
+      return {
+        ...sel,
+        course: {...found.course},
+        deptId: found.dept.id,
+        procId: found.proc.id,
+      };
     }
-  });
+    return null;
+  }).filter(Boolean);
   // ensure selectedDept/selectedProc still valid
   if (!MASTER.departments.find(d => d.id === state.selectedDept)) {
     state.selectedDept = MASTER.departments[0]?.id || null;
@@ -1108,15 +1147,37 @@ function renderMasterModal() {
     const row = document.createElement('div');
     row.className = 'master-row';
     row.innerHTML = `
-      <input type="text" value="${(c.subject||'').replace(/"/g,'&quot;')}" placeholder="과목명">
+      <input type="text" value="${(c.subject||'').replace(/"/g,'&quot;')}" placeholder="과목명 (입력하면 자동 채움)">
       <input type="text" value="${(c.desc||'').replace(/"/g,'&quot;')}" placeholder="설명">
       <input type="number" value="${c.fee||0}" placeholder="가격">
       <button class="del-row" title="삭제">×</button>
     `;
     const inputs = row.querySelectorAll('input');
-    inputs[0].onchange = e => { c.subject = e.target.value; saveMaster(); };
+    // Subject: autofill desc + fee when matching existing course
+    inputs[0].onchange = e => {
+      c.subject = e.target.value.trim();
+      const match = findExistingCourse(c.subject, c.id);
+      if (match && (!c.desc || !c.fee)) {
+        if (!c.desc) { c.desc = match.desc; inputs[1].value = match.desc; }
+        if (!c.fee) { c.fee = match.fee; inputs[2].value = match.fee; }
+      }
+      saveMaster();
+    };
     inputs[1].onchange = e => { c.desc = e.target.value; saveMaster(); };
     inputs[2].onchange = e => { c.fee = Number(e.target.value)||0; saveMaster(); };
+    // Enter to commit and move to next input / ESC to blur
+    inputs.forEach((inp, idx) => {
+      inp.onkeydown = (ev) => {
+        if (ev.key === 'Enter') {
+          ev.preventDefault();
+          inp.blur();
+          if (idx < inputs.length - 1) inputs[idx+1].focus();
+        } else if (ev.key === 'Escape') {
+          ev.preventDefault();
+          inp.blur();
+        }
+      };
+    });
     row.querySelector('.del-row').onclick = () => {
       if (!confirm(`"${c.subject}" 과목을 삭제할까요?`)) return;
       proc.courses = proc.courses.filter(x => x.id !== c.id);
@@ -1177,19 +1238,67 @@ function resetMaster() {
 }
 
 // ============ PRINT ============
+// A4 = 210mm × 297mm, @ 96dpi × (mm->in) ≈ 794 × 1123 px
+const A4_WIDTH_PX = 794;
+const A4_HEIGHT_PX = 1123;
+
 function printNormal() {
-  document.body.classList.remove('compact-print');
+  document.body.classList.remove('fit-one-page');
+  const q = document.getElementById('quotation');
+  q.style.transform = '';
+  q.style.width = '';
+  q.style.height = '';
   setTimeout(() => window.print(), 50);
 }
-function printCompact() {
-  document.body.classList.add('compact-print');
-  setTimeout(() => {
-    window.print();
-    setTimeout(() => document.body.classList.remove('compact-print'), 500);
-  }, 50);
+
+function printFitOnePage() {
+  // 엑셀 "페이지에 맞춤"과 동일: 실제 내용 높이를 측정해 A4 한 장에 딱 맞게 scale
+  document.body.classList.add('fit-one-page');
+  const q = document.getElementById('quotation');
+  q.style.transform = '';
+  q.style.width = A4_WIDTH_PX + 'px';
+  q.style.minHeight = 'auto';
+  q.style.height = 'auto';
+
+  // 2 프레임 기다려 레이아웃 확정
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const actualHeight = q.scrollHeight;
+    const actualWidth = q.scrollWidth;
+    const scaleH = A4_HEIGHT_PX / actualHeight;
+    const scaleW = A4_WIDTH_PX / actualWidth;
+    let scale = Math.min(scaleH, scaleW, 1); // 내용이 작으면 1.0 유지
+    // 너무 작아지지 않도록 하한 (과도한 축소 방지, 실제로는 0.5 아래로 잘 안감)
+    if (scale < 0.35) scale = 0.35;
+
+    q.style.transform = `scale(${scale})`;
+    q.style.transformOrigin = 'top left';
+    // scale 후에도 페이지가 한장으로 인식되도록 wrapper 높이 조정
+    q.style.marginBottom = -(actualHeight * (1 - scale)) + 'px';
+    q.style.width = actualWidth + 'px';
+
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => {
+        document.body.classList.remove('fit-one-page');
+        q.style.transform = '';
+        q.style.width = '';
+        q.style.height = '';
+        q.style.minHeight = '';
+        q.style.marginBottom = '';
+      }, 500);
+    }, 100);
+  }));
 }
 
 // ============ INIT ============
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('masterModal');
+    if (modal.classList.contains('show') && !e.target.matches('input, textarea')) {
+      closeMaster();
+    }
+  }
+});
 (async () => {
   await loadMaster();
   state.selectedDept = MASTER.departments[0]?.id || null;
