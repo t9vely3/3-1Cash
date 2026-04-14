@@ -227,35 +227,71 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .toast.show { opacity: 1; }
 
 @page {
-  size: A4;
-  margin: 0;
+  size: A4 portrait;
+  margin: 8mm;
 }
 @media print {
-  body { background: white; }
-  .panel { display: none; }
-  .app { grid-template-columns: 1fr; display: block; }
-  .preview-wrap { padding: 0; max-height: none; overflow: visible; }
-  .quotation { box-shadow: none; max-width: 100%; }
-  .q-row .x-btn { display: none; }
-  .q-row, .q-addon, .q-policy-list li { page-break-inside: avoid; break-inside: avoid; }
-}
-/* fit-to-one-page 모드: A4 한장에 강제로 맞춤 (엑셀 "페이지에 맞춤"과 동일 원리) */
-body.fit-one-page { background: #FFFFFF; }
-body.fit-one-page .panel { display: none; }
-body.fit-one-page .app { display: block; }
-body.fit-one-page .preview-wrap { padding: 0; max-height: none; overflow: visible; }
-body.fit-one-page .quotation {
-  box-shadow: none;
-  width: 210mm;
-  min-height: 297mm;
-  max-width: 210mm;
-  padding: 14mm 16mm;
-  margin: 0;
-  transform-origin: top left;
-}
-body.fit-one-page .q-row .x-btn { display: none; }
-@media print {
-  body.fit-one-page .quotation { page-break-after: avoid; }
+  html, body { background: white !important; margin: 0 !important; padding: 0 !important; }
+  .panel { display: none !important; }
+  .app { display: block !important; grid-template-columns: none !important; }
+  .preview-wrap { padding: 0 !important; max-height: none !important; overflow: visible !important; }
+  .quotation {
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+  .q-row .x-btn, .q-row td.drag, .q-table th.hdrag { display: none !important; }
+  /* 인쇄 시 밀도 자동 압축 - 한 장에 맞도록 */
+  .quotation .q-header { margin-bottom: 14px !important; padding-bottom: 10px !important; }
+  .quotation .q-header::after { width: 60px !important; }
+  .quotation .q-title { font-size: 20px !important; }
+  .quotation .q-title .sub { font-size: 9px !important; margin-top: 1px !important; }
+  .quotation .q-brand { font-size: 8.5px !important; margin-top: 6px !important; }
+  .quotation .q-meta { font-size: 9px !important; line-height: 1.7 !important; }
+  .quotation .q-info { padding: 12px 16px !important; margin-bottom: 14px !important; gap: 18px !important; }
+  .quotation .q-info-item .label { font-size: 8.5px !important; }
+  .quotation .q-info-item .value { font-size: 12px !important; margin-top: 3px !important; }
+  .quotation .q-section { font-size: 10px !important; margin-bottom: 6px !important; }
+  .quotation .q-table { font-size: 10px !important; }
+  .quotation .q-table th { padding: 6px 0 !important; font-size: 9px !important; }
+  .quotation .q-row td { padding: 4px 0 !important; }
+  .quotation .q-row td.no { font-size: 9px !important; width: 28px !important; }
+  .quotation .q-row td.sub { font-size: 10.5px !important; }
+  .quotation .q-row td.desc { font-size: 9px !important; }
+  .quotation .q-row td.fee { font-size: 10.5px !important; width: 85px !important; }
+  .quotation .q-calc { margin-top: 8px !important; }
+  .quotation .q-calc-box { width: 280px !important; }
+  .quotation .q-calc-row { padding: 3px 0 !important; font-size: 10px !important; }
+  .quotation .q-calc-row.line { padding-top: 6px !important; margin-top: 4px !important; }
+  .quotation .q-calc-row.line .lbl, .quotation .q-calc-row.line .val { font-size: 11px !important; }
+  .quotation .q-addons { margin-top: 14px !important; }
+  .quotation .q-addon { padding: 6px 0 !important; }
+  .quotation .q-addon .aname { font-size: 10.5px !important; }
+  .quotation .q-addon .ameta { font-size: 9px !important; }
+  .quotation .q-addon .aamount { font-size: 10.5px !important; }
+  .quotation .q-promotions-box { margin-top: 14px !important; padding: 10px 14px !important; }
+  .quotation .q-promotions-title { font-size: 9px !important; margin-bottom: 6px !important; }
+  .quotation .q-promo-item { padding: 5px 0 !important; }
+  .quotation .q-promo-name { font-size: 10.5px !important; }
+  .quotation .q-promo-deadline { font-size: 8.5px !important; }
+  .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.5 !important; }
+  .quotation .q-total { margin-top: 16px !important; padding-top: 12px !important; }
+  .quotation .q-total-label { font-size: 9px !important; }
+  .quotation .q-total-sub { font-size: 9px !important; margin-top: 4px !important; }
+  .quotation .q-total-amount { font-size: 22px !important; }
+  .quotation .q-total-amount .cur { font-size: 10px !important; }
+  .quotation .q-total-amount .won { font-size: 10px !important; }
+  .quotation .q-policies { margin-top: 14px !important; padding-top: 10px !important; }
+  .quotation .q-policy-block { margin-bottom: 10px !important; }
+  .quotation .q-policy-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
+  .quotation .q-policy-list li { font-size: 9px !important; padding: 2px 0 2px 18px !important; line-height: 1.5 !important; }
+  /* 페이지 나눔 방지 */
+  .q-row, .q-addon, .q-policy-list li, .q-promo-item { page-break-inside: avoid; break-inside: avoid; }
+  .q-total, .q-addons, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
 }
 </style>
 </head>
@@ -314,10 +350,9 @@ body.fit-one-page .q-row .x-btn { display: none; }
 
     <div class="actions">
       <button class="btn btn-secondary" onclick="resetAll()">초기화</button>
-      <button class="btn btn-primary" onclick="printNormal()">PDF 저장</button>
+      <button class="btn btn-primary" onclick="printQuotation()">📄 PDF 저장 / 인쇄</button>
     </div>
     <div class="actions-row2">
-      <button class="btn btn-secondary" style="font-size:11px;" onclick="printFitOnePage()">📄 한 장에 강제로 맞춤</button>
       <button class="btn btn-secondary" style="font-size:11px;" onclick="openMaster()">⚙ 마스터 편집</button>
     </div>
   </aside>
@@ -1238,56 +1273,9 @@ function resetMaster() {
 }
 
 // ============ PRINT ============
-// A4 = 210mm × 297mm, @ 96dpi × (mm->in) ≈ 794 × 1123 px
-const A4_WIDTH_PX = 794;
-const A4_HEIGHT_PX = 1123;
-
-function printNormal() {
-  document.body.classList.remove('fit-one-page');
-  const q = document.getElementById('quotation');
-  q.style.transform = '';
-  q.style.width = '';
-  q.style.height = '';
-  setTimeout(() => window.print(), 50);
-}
-
-function printFitOnePage() {
-  // 엑셀 "페이지에 맞춤"과 동일: 실제 내용 높이를 측정해 A4 한 장에 딱 맞게 scale
-  document.body.classList.add('fit-one-page');
-  const q = document.getElementById('quotation');
-  q.style.transform = '';
-  q.style.width = A4_WIDTH_PX + 'px';
-  q.style.minHeight = 'auto';
-  q.style.height = 'auto';
-
-  // 2 프레임 기다려 레이아웃 확정
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const actualHeight = q.scrollHeight;
-    const actualWidth = q.scrollWidth;
-    const scaleH = A4_HEIGHT_PX / actualHeight;
-    const scaleW = A4_WIDTH_PX / actualWidth;
-    let scale = Math.min(scaleH, scaleW, 1); // 내용이 작으면 1.0 유지
-    // 너무 작아지지 않도록 하한 (과도한 축소 방지, 실제로는 0.5 아래로 잘 안감)
-    if (scale < 0.35) scale = 0.35;
-
-    q.style.transform = `scale(${scale})`;
-    q.style.transformOrigin = 'top left';
-    // scale 후에도 페이지가 한장으로 인식되도록 wrapper 높이 조정
-    q.style.marginBottom = -(actualHeight * (1 - scale)) + 'px';
-    q.style.width = actualWidth + 'px';
-
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => {
-        document.body.classList.remove('fit-one-page');
-        q.style.transform = '';
-        q.style.width = '';
-        q.style.height = '';
-        q.style.minHeight = '';
-        q.style.marginBottom = '';
-      }, 500);
-    }, 100);
-  }));
+function printQuotation() {
+  // CSS @media print 가 자동 압축 처리. 한 장에 담을 수 있게 설계됨.
+  window.print();
 }
 
 // ============ INIT ============
