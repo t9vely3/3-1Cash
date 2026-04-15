@@ -96,8 +96,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-section { font-size: 11px; letter-spacing: 0.5px; color: #0F0F0F; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
 .q-section .hint { font-size: 10px; color: #6B6862; letter-spacing: 0.3px; text-transform: none; font-weight: 400; }
 
-.q-table { width: 100%; font-size: 13px; border-collapse: collapse; font-weight: 400; }
-.q-table thead tr { border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #6B6862; }
+.q-table { width: 100%; font-size: 13px; border-collapse: collapse; font-weight: 400; }.q-table thead tr { border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #6B6862; }
 .q-table th { text-align: left; padding: 12px 0; font-weight: 700; font-size: 11px; letter-spacing: 0.5px; color: #4A4843; }
 .q-table th.right { text-align: right; }
 .q-table th.hdrag { width: 22px; padding-left: 2px; }
@@ -142,6 +141,31 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-total-amount { font-size: 28px; letter-spacing: -0.3px; line-height: 1; font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 700; }
 .q-total-amount .cur { font-size: 12px; color: #6B6862; font-weight: 500; margin-right: 6px; letter-spacing: 0; }
 .q-total-amount .won { font-size: 13px; color: #6B6862; font-weight: 500; margin-left: 4px; }
+
+/* 하단 2컬럼: 좌측(프로모션·추가) + 우측(합계·최종액) */
+.q-bottom-grid { margin-top: 32px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
+.q-bottom-left { display: flex; flex-direction: column; gap: 14px; }
+.q-bottom-empty { padding: 18px 20px; background: #FBF9F0; color: #8C8A82; font-size: 12px; text-align: center; border: 0.5px dashed #D8D3C8; }
+
+/* 추가 항목 박스 (따즈아·ACP) */
+.q-addons-box { background: #FFFFFF; border: 0.5px solid #C4BFB4; padding: 16px 20px; }
+.q-addons-title { font-size: 11px; letter-spacing: 0.5px; color: #4A4843; font-weight: 700; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid #E5E2D9; }
+.q-addons-list { display: flex; flex-direction: column; gap: 6px; }
+.q-addon { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
+.q-addon .aname { font-size: 12.5px; color: #0F0F0F; font-weight: 500; }
+.q-addon .aamount { font-size: 12.5px; font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
+
+/* 합계 박스 (우측) */
+.q-summary-box { background: #FBF9F0; padding: 22px 24px 24px; border-left: 3px solid #B8860B; }
+.q-sum-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 13px; }
+.q-sum-row .lbl { color: #4A4843; font-weight: 500; }
+.q-sum-row .val { font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
+.q-sum-row.minus .val { color: #9C2626; }
+.q-sum-row.plus .val { color: #1F1F1F; }
+.q-sum-final { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 16px; border-top: 1.5px solid #0F0F0F; }
+.q-sum-final .lbl { font-size: 13px; color: #0F0F0F; font-weight: 700; letter-spacing: 0.3px; }
+.q-sum-final .val { font-size: 30px; color: #0F0F0F; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; line-height: 1; }
+.q-sum-final .val .won { font-size: 14px; color: #6B6862; font-weight: 600; margin-left: 4px; }
 
 /* 학원 안내 섹션 */
 .q-policies { margin-top: 44px; padding-top: 26px; border-top: 1.5px solid #0F0F0F; }
@@ -301,25 +325,32 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-addon .aname { font-size: 10.5px !important; }
   .quotation .q-addon .ameta { font-size: 9px !important; }
   .quotation .q-addon .aamount { font-size: 10.5px !important; }
-  .quotation .q-promotions-box { margin-top: 14px !important; padding: 10px 14px !important; }
+  .quotation .q-bottom-grid { margin-top: 12px !important; gap: 14px !important; }
+  .quotation .q-summary-box { padding: 12px 14px 14px !important; }
+  .quotation .q-sum-row { padding: 3px 0 !important; font-size: 10px !important; }
+  .quotation .q-sum-final { margin-top: 8px !important; padding-top: 8px !important; }
+  .quotation .q-sum-final .lbl { font-size: 11px !important; }
+  .quotation .q-sum-final .val { font-size: 22px !important; }
+  .quotation .q-sum-final .val .won { font-size: 11px !important; }
+  .quotation .q-addons-box { padding: 10px 14px !important; }
+  .quotation .q-addons-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
+  .quotation .q-addon { padding: 2px 0 !important; }
+  .quotation .q-addon .aname { font-size: 10px !important; }
+  .quotation .q-addon .aamount { font-size: 10px !important; }
+  .quotation .q-bottom-empty { padding: 10px !important; font-size: 10px !important; }
+  .quotation .q-promotions-box { margin-top: 0 !important; padding: 10px 14px !important; }
   .quotation .q-promotions-title { font-size: 9px !important; margin-bottom: 6px !important; }
   .quotation .q-promo-item { padding: 5px 0 !important; }
   .quotation .q-promo-name { font-size: 10.5px !important; }
   .quotation .q-promo-deadline { font-size: 8.5px !important; }
   .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.5 !important; }
-  .quotation .q-total { margin-top: 16px !important; padding-top: 12px !important; }
-  .quotation .q-total-label { font-size: 9px !important; }
-  .quotation .q-total-sub { font-size: 9px !important; margin-top: 4px !important; }
-  .quotation .q-total-amount { font-size: 22px !important; }
-  .quotation .q-total-amount .cur { font-size: 10px !important; }
-  .quotation .q-total-amount .won { font-size: 10px !important; }
   .quotation .q-policies { margin-top: 14px !important; padding-top: 10px !important; }
   .quotation .q-policy-block { margin-bottom: 10px !important; }
   .quotation .q-policy-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
   .quotation .q-policy-list li { font-size: 9px !important; padding: 2px 0 2px 18px !important; line-height: 1.5 !important; }
   /* 페이지 나눔 방지 */
   .q-row, .q-addon, .q-policy-list li, .q-promo-item { page-break-inside: avoid; break-inside: avoid; }
-  .q-total, .q-addons, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
+  .q-summary-box, .q-bottom-grid, .q-addons-box, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
 }
 </style>
 </head>
@@ -974,31 +1005,21 @@ function renderPreview() {
     });
   }
 
-  let calcHtml = `<div class="q-calc-box">`;
-  calcHtml += `<div class="q-calc-row"><span class="lbl">Subtotal · ${r.items.length}과목</span><span class="val">${fmt(r.subtotal)}</span></div>`;
-  if (r.freeAmount > 0) calcHtml += `<div class="q-calc-row minus"><span class="lbl">무료과목 지원</span><span class="val">− ${fmt(r.freeAmount)}</span></div>`;
-  if (r.percentAmount > 0) calcHtml += `<div class="q-calc-row minus"><span class="lbl">${state.percent}% 할인</span><span class="val">− ${fmt(r.percentAmount)}</span></div>`;
-  if (r.direct > 0) calcHtml += `<div class="q-calc-row minus"><span class="lbl">직권 할인</span><span class="val">− ${fmt(r.direct)}</span></div>`;
-  calcHtml += `<div class="q-calc-row line"><span class="lbl">과목 납부액</span><span class="val">${fmt(r.courseTotal)}</span></div>`;
-  calcHtml += `</div>`;
-
   let addonHtml = '';
   if (r.ddObj || r.acpObj) {
     addonHtml = `
-      <div class="q-addons">
-        <div class="q-addons-list">
-          ${r.ddObj ? `<div class="q-addon"><div><div class="aname">${r.ddObj.label}</div><div class="ameta">평생수강 옵션</div></div><div class="aamount">${fmt(r.ddObj.fee)}</div></div>` : ''}
-          ${r.acpObj ? `<div class="q-addon"><div><div class="aname">${r.acpObj.label}</div><div class="ameta">Adobe Certified Professional</div></div><div class="aamount">${fmt(r.acpObj.fee)}</div></div>` : ''}
-        </div>
+      <div class="q-addons-list">
+        ${r.ddObj ? `<div class="q-addon"><div class="aname">${r.ddObj.label}</div><div class="aamount">${fmt(r.ddObj.fee)}</div></div>` : ''}
+        ${r.acpObj ? `<div class="q-addon"><div class="aname">${r.acpObj.label}</div><div class="aamount">${fmt(r.acpObj.fee)}</div></div>` : ''}
       </div>
     `;
   }
 
-  // 프로모션 박스
+  // 좌측: 적용 프로모션 + 추가 항목
   const activePromos = state.promotions.filter(p => (p.name||'').trim() !== '');
-  let promoHtml = '';
+  let leftColHtml = '';
   if (activePromos.length > 0) {
-    promoHtml = `
+    leftColHtml += `
       <div class="q-promotions-box">
         <div class="q-promotions-title">적용 프로모션</div>
         ${activePromos.map(p => `
@@ -1013,8 +1034,35 @@ function renderPreview() {
       </div>
     `;
   }
+  if (addonHtml) {
+    leftColHtml += `<div class="q-addons-box">
+      <div class="q-addons-title">추가 항목</div>
+      ${addonHtml}
+    </div>`;
+  }
 
-  const totalDiscount = r.freeAmount + r.percentAmount + r.direct;
+  // 우측: 합계 + 최종 납부액 통합 박스
+  const totalDiscountSum = r.freeAmount + r.percentAmount;
+  let summaryHtml = `<div class="q-summary-box">`;
+  summaryHtml += `<div class="q-sum-row"><span class="lbl">원 수강료</span><span class="val">${fmt(r.subtotal)}</span></div>`;
+  if (totalDiscountSum > 0) {
+    summaryHtml += `<div class="q-sum-row minus"><span class="lbl">총 할인</span><span class="val">− ${fmt(totalDiscountSum)}</span></div>`;
+  }
+  if (r.direct > 0) {
+    summaryHtml += `<div class="q-sum-row minus"><span class="lbl">멘토 직권</span><span class="val">− ${fmt(r.direct)}</span></div>`;
+  }
+  if (r.addonTotal > 0) {
+    summaryHtml += `<div class="q-sum-row plus"><span class="lbl">추가</span><span class="val">+ ${fmt(r.addonTotal)}</span></div>`;
+  }
+  summaryHtml += `<div class="q-sum-final"><span class="lbl">최종 납부액</span><span class="val">${fmt(r.finalTotal)}<span class="won">원</span></span></div>`;
+  summaryHtml += `</div>`;
+
+  const bottomBlockHtml = `
+    <div class="q-bottom-grid">
+      <div class="q-bottom-left">${leftColHtml || '<div class="q-bottom-empty">적용된 프로모션 / 추가 항목이 없습니다</div>'}</div>
+      <div class="q-bottom-right">${summaryHtml}</div>
+    </div>
+  `;
 
   // 안내/등록방법 데이터에서 렌더
   const guideItems = (MASTER.policies?.guide || []).map((p, i) =>
@@ -1047,16 +1095,7 @@ function renderPreview() {
       <thead><tr><th class="hdrag"></th><th>번호</th><th>과목명</th><th>세부 내용</th><th class="right">수강료</th></tr></thead>
       <tbody id="qBody">${rowsHtml}</tbody>
     </table>
-    <div class="q-calc">${calcHtml}</div>
-    ${addonHtml}
-    ${promoHtml}
-    <div class="q-total">
-      <div>
-        <div class="q-total-label">최종 납부액</div>
-        <div class="q-total-sub">원 수강료 ${fmt(r.subtotal)} &nbsp;·&nbsp; 총 할인 ${fmt(totalDiscount)}${r.addonTotal>0 ? ' &nbsp;·&nbsp; 추가 '+fmt(r.addonTotal) : ''}</div>
-      </div>
-      <div class="q-total-amount"><span class="cur">KRW</span>${fmt(r.finalTotal)}<span class="won">원</span></div>
-    </div>
+    ${bottomBlockHtml}
     <div class="q-policies">
       <div class="q-policy-block">
         <div class="q-policy-title">※ 수강 안내</div>
