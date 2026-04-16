@@ -142,20 +142,18 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-total-amount .cur { font-size: 12px; color: #6B6862; font-weight: 500; margin-right: 6px; letter-spacing: 0; }
 .q-total-amount .won { font-size: 13px; color: #6B6862; font-weight: 500; margin-left: 4px; }
 
-/* 하단 2컬럼: 좌측(프로모션·추가) + 우측(합계·최종액) */
-.q-bottom-grid { margin-top: 32px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
-.q-bottom-left { display: flex; flex-direction: column; gap: 14px; }
-.q-bottom-empty { padding: 18px 20px; background: #FBF9F0; color: #8C8A82; font-size: 12px; text-align: center; border: 0.5px dashed #D8D3C8; }
+/* 하단 레이아웃: 프로모션·추가항목 → 합계·최종액 (세로 1컬럼) */
+.q-bottom-section { margin-top: 28px; }
 
 /* 추가 항목 박스 (따즈아·ACP) */
-.q-addons-box { background: #FFFFFF; border: 0.5px solid #C4BFB4; padding: 16px 20px; }
-.q-addons-title { font-size: 11px; letter-spacing: 0.5px; color: #4A4843; font-weight: 700; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid #E5E2D9; }
-.q-addons-list { display: flex; flex-direction: column; gap: 6px; }
+.q-addons-box { background: #FFFFFF; border: 0.5px solid #C4BFB4; padding: 14px 20px; margin-bottom: 14px; }
+.q-addons-title { font-size: 11px; letter-spacing: 0.5px; color: #4A4843; font-weight: 700; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 0.5px solid #E5E2D9; }
+.q-addons-list { display: flex; flex-direction: column; gap: 4px; }
 .q-addon { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
 .q-addon .aname { font-size: 12.5px; color: #0F0F0F; font-weight: 500; }
 .q-addon .aamount { font-size: 12.5px; font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
 
-/* 합계 박스 (우측) */
+/* 합계 박스 */
 .q-summary-box { background: #FBF9F0; padding: 22px 24px 24px; border-left: 3px solid #B8860B; }
 .q-sum-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 13px; }
 .q-sum-row .lbl { color: #4A4843; font-weight: 500; }
@@ -163,7 +161,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-sum-row.minus .val { color: #9C2626; }
 .q-sum-row.plus .val { color: #1F1F1F; }
 .q-sum-final { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 16px; border-top: 1.5px solid #0F0F0F; }
-.q-sum-final .lbl { font-size: 13px; color: #0F0F0F; font-weight: 700; letter-spacing: 0.3px; }
+.q-sum-final .lbl { font-size: 14px; color: #0F0F0F; font-weight: 700; letter-spacing: 0.3px; }
 .q-sum-final .val { font-size: 30px; color: #0F0F0F; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; line-height: 1; }
 .q-sum-final .val .won { font-size: 14px; color: #6B6862; font-weight: 600; margin-left: 4px; }
 
@@ -251,18 +249,18 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .toast.show { opacity: 1; }
 
 .history-list { max-height: 60vh; overflow-y: auto; }
-.history-item { display: grid; grid-template-columns: 110px 1fr 130px 130px 110px 60px; gap: 10px; padding: 12px 24px; border-bottom: 0.5px solid #ECE8DE; align-items: center; cursor: pointer; transition: background 0.1s; }
+.history-item { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 36px; gap: 8px; padding: 12px 24px; border-bottom: 0.5px solid #ECE8DE; align-items: center; cursor: pointer; transition: background 0.1s; }
 .history-item:hover { background: #FBF9F0; }
-.history-item .col-date { font-size: 11px; color: #6B6862; font-weight: 500; font-variant-numeric: tabular-nums; }
+.history-item .col-date { font-size: 12px; color: #0F0F0F; font-weight: 500; font-variant-numeric: tabular-nums; }
 .history-item .col-student { font-size: 13px; color: #0F0F0F; font-weight: 600; }
-.history-item .col-program { font-size: 11px; color: #4A4843; font-weight: 400; }
-.history-item .col-mentor { font-size: 11px; color: #4A4843; }
+.history-item .col-contact { font-size: 12px; color: #4A4843; font-weight: 400; font-variant-numeric: tabular-nums; }
+.history-item .col-mentor { font-size: 12px; color: #4A4843; }
 .history-item .col-amount { font-size: 13px; color: #0F0F0F; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
-.history-item .col-actions { display: flex; gap: 4px; justify-content: flex-end; }
+.history-item .col-actions { text-align: right; }
 .history-item .hist-btn { background: none; border: 0.5px solid #D8D3C8; padding: 4px 8px; cursor: pointer; font-size: 11px; font-family: inherit; color: #4A4843; }
 .history-item .hist-btn:hover { border-color: #0F0F0F; color: #0F0F0F; }
 .history-item .hist-btn.del:hover { border-color: #C00; color: #C00; }
-.history-header { display: grid; grid-template-columns: 110px 1fr 130px 130px 110px 60px; gap: 10px; padding: 12px 24px; background: #F5F4F0; border-bottom: 1px solid #0F0F0F; font-size: 10px; color: #6B6862; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.history-header { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 36px; gap: 8px; padding: 12px 24px; background: #F5F4F0; border-bottom: 1px solid #0F0F0F; font-size: 10px; color: #6B6862; font-weight: 700; letter-spacing: 0.5px; }
 .history-empty { text-align: center; padding: 60px 20px; color: #8C8A82; font-size: 13px; }
 .editing-banner { background: #FFF8E1; border-bottom: 1px solid #B8860B; padding: 10px 26px; font-size: 12px; color: #9C6F00; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .editing-banner button { background: transparent; border: 0.5px solid #9C6F00; color: #9C6F00; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
@@ -325,32 +323,31 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-addon .aname { font-size: 10.5px !important; }
   .quotation .q-addon .ameta { font-size: 9px !important; }
   .quotation .q-addon .aamount { font-size: 10.5px !important; }
-  .quotation .q-bottom-grid { margin-top: 12px !important; gap: 14px !important; }
+  .quotation .q-bottom-section { margin-top: 12px !important; }
   .quotation .q-summary-box { padding: 12px 14px 14px !important; }
   .quotation .q-sum-row { padding: 3px 0 !important; font-size: 10px !important; }
   .quotation .q-sum-final { margin-top: 8px !important; padding-top: 8px !important; }
   .quotation .q-sum-final .lbl { font-size: 11px !important; }
-  .quotation .q-sum-final .val { font-size: 22px !important; }
-  .quotation .q-sum-final .val .won { font-size: 11px !important; }
-  .quotation .q-addons-box { padding: 10px 14px !important; }
-  .quotation .q-addons-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
+  .quotation .q-sum-final .val { font-size: 20px !important; }
+  .quotation .q-sum-final .val .won { font-size: 10px !important; }
+  .quotation .q-addons-box { padding: 8px 14px !important; margin-bottom: 8px !important; }
+  .quotation .q-addons-title { font-size: 9px !important; margin-bottom: 4px !important; padding-bottom: 3px !important; }
   .quotation .q-addon { padding: 2px 0 !important; }
   .quotation .q-addon .aname { font-size: 10px !important; }
   .quotation .q-addon .aamount { font-size: 10px !important; }
-  .quotation .q-bottom-empty { padding: 10px !important; font-size: 10px !important; }
-  .quotation .q-promotions-box { margin-top: 0 !important; padding: 10px 14px !important; }
-  .quotation .q-promotions-title { font-size: 9px !important; margin-bottom: 6px !important; }
-  .quotation .q-promo-item { padding: 5px 0 !important; }
-  .quotation .q-promo-name { font-size: 10.5px !important; }
-  .quotation .q-promo-deadline { font-size: 8.5px !important; }
-  .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.5 !important; }
+  .quotation .q-promotions-box { margin-bottom: 8px !important; padding: 8px 14px !important; }
+  .quotation .q-promotions-title { font-size: 9px !important; margin-bottom: 4px !important; }
+  .quotation .q-promo-item { padding: 4px 0 !important; }
+  .quotation .q-promo-name { font-size: 10px !important; }
+  .quotation .q-promo-deadline { font-size: 8px !important; }
+  .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.4 !important; }
   .quotation .q-policies { margin-top: 14px !important; padding-top: 10px !important; }
   .quotation .q-policy-block { margin-bottom: 10px !important; }
   .quotation .q-policy-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
   .quotation .q-policy-list li { font-size: 9px !important; padding: 2px 0 2px 18px !important; line-height: 1.5 !important; }
   /* 페이지 나눔 방지 */
   .q-row, .q-addon, .q-policy-list li, .q-promo-item { page-break-inside: avoid; break-inside: avoid; }
-  .q-summary-box, .q-bottom-grid, .q-addons-box, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
+  .q-summary-box, .q-bottom-section, .q-addons-box, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
 }
 </style>
 </head>
@@ -378,6 +375,10 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
     <div class="field">
       <label>학생명</label>
       <input type="text" id="student" placeholder="홍길동">
+    </div>
+    <div class="field">
+      <label>연락처</label>
+      <input type="text" id="contact" placeholder="010-0000-0000">
     </div>
     <div class="row2">
       <div class="field"><label>담당 멘토</label><select id="mentorSelect"></select><input type="text" id="mentorCustom" placeholder="이름 입력" style="display:none; margin-top:6px;"></div>
@@ -977,6 +978,7 @@ function calc() {
 function renderPreview() {
   const meta = {
     student: document.getElementById('student').value,
+    contact: document.getElementById('contact').value,
     mentor: getSelectedMentor(),
     counselor: getSelectedCounselor(),
     issued: document.getElementById('issued').value || new Date().toISOString().slice(0,10),
@@ -1058,9 +1060,9 @@ function renderPreview() {
   summaryHtml += `</div>`;
 
   const bottomBlockHtml = `
-    <div class="q-bottom-grid">
-      <div class="q-bottom-left">${leftColHtml || '<div class="q-bottom-empty">적용된 프로모션 / 추가 항목이 없습니다</div>'}</div>
-      <div class="q-bottom-right">${summaryHtml}</div>
+    <div class="q-bottom-section">
+      ${leftColHtml}
+      ${summaryHtml}
     </div>
   `;
 
@@ -1176,7 +1178,7 @@ document.getElementById('percentInput').oninput = e => { state.percent = e.targe
 document.getElementById('directInput').oninput = e => { state.direct = e.target.value; renderPreview(); };
 document.getElementById('ddajuaSelect').onchange = e => { state.ddajua = e.target.value; renderPreview(); };
 document.getElementById('acpSelect').onchange = e => { state.acp = e.target.value; renderPreview(); };
-['student','issued','program'].forEach(id => {
+['student','contact','issued','program'].forEach(id => {
   document.getElementById(id).oninput = renderPreview;
   document.getElementById(id).onchange = renderPreview;
 });
@@ -1200,6 +1202,7 @@ function resetAll() {
   state.promotions = [];
   state.editingQuoteId = null;
   document.getElementById('student').value = '';
+  document.getElementById('contact').value = '';
   document.getElementById('program').value = '';
   document.getElementById('percentInput').value = 0;
   document.getElementById('directInput').value = 0;
@@ -1620,6 +1623,7 @@ function buildQuoteSnapshot(asNew) {
     id: (asNew || !state.editingQuoteId) ? ('q' + Date.now()) : state.editingQuoteId,
     savedAt: new Date().toISOString(),
     student: meta.student,
+    contact: meta.contact,
     mentor: meta.mentor,
     counselor: meta.counselor,
     issued: meta.issued,
@@ -1663,6 +1667,7 @@ function saveQuoteFlow() {
 function showSaveDialog(isEditing) {
   const r = calc();
   const student = document.getElementById('student').value.trim();
+  const contact = document.getElementById('contact').value.trim();
   const mentor = getSelectedMentor();
   const counselor = getSelectedCounselor();
 
@@ -1672,11 +1677,9 @@ function showSaveDialog(isEditing) {
     : '이 견적을 저장 이력에 추가합니다.';
 
   document.getElementById('saveDialogSummary').innerHTML = `
-    <div><b>학생</b> &nbsp; ${student}</div>
-    <div><b>담당 멘토</b> &nbsp; ${mentor || '—'}</div>
-    ${counselor && counselor !== mentor ? `<div><b>상담자</b> &nbsp; ${counselor}</div>` : ''}
-    <div><b>과목 수</b> &nbsp; ${r.items.length}과목</div>
-    <div><b>최종 금액</b> &nbsp; ${fmt(r.finalTotal)}원</div>
+    <div><b>학생</b> &nbsp; ${student}${contact ? ' &nbsp;·&nbsp; ' + contact : ''}</div>
+    <div><b>담당 멘토</b> &nbsp; ${mentor || '—'}${counselor && counselor !== mentor ? ' &nbsp;(상담: ' + counselor + ')' : ''}</div>
+    <div><b>과목 수</b> &nbsp; ${r.items.length}과목 &nbsp;·&nbsp; <b>최종 금액</b> &nbsp; ${fmt(r.finalTotal)}원</div>
   `;
 
   const footer = document.getElementById('saveDialogFooter');
@@ -1731,9 +1734,21 @@ function offerPostPrintSave() {
 
 async function openHistory() {
   document.getElementById('historyModal').classList.add('show');
-  document.getElementById('historyList').innerHTML = '<div class="history-empty">불러오는 중...</div>';
-  await fetchHistory();
-  renderHistory();
+  // 캐시된 데이터 즉시 표시
+  if (HISTORY_CACHE.length > 0) {
+    renderHistory();
+  } else {
+    document.getElementById('historyList').innerHTML = '<div class="history-empty">불러오는 중...</div>';
+  }
+  // 백그라운드로 최신 데이터 가져오기
+  try {
+    await fetchHistory();
+    renderHistory();
+  } catch(e) {
+    if (HISTORY_CACHE.length === 0) {
+      document.getElementById('historyList').innerHTML = '<div class="history-empty">서버 연결 실패</div>';
+    }
+  }
 }
 function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
@@ -1747,26 +1762,25 @@ function renderHistory() {
   }
   const header = document.createElement('div');
   header.className = 'history-header';
-  header.innerHTML = `<div>발행일</div><div>학생 / 프로그램</div><div>담당 멘토</div><div>상담자</div><div style="text-align:right;">최종 금액</div><div></div>`;
+  header.innerHTML = `<div>발행일</div><div>학생</div><div>연락처</div><div>담당멘토 (상담)</div><div style="text-align:right;">최종 금액</div><div></div>`;
   list.appendChild(header);
 
   hist.forEach(h => {
     const row = document.createElement('div');
     row.className = 'history-item';
-    const dateStr = (h.issued || '').replace(/-/g,'.');
-    const savedAt = h.savedAt ? new Date(h.savedAt).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    // 날짜 포맷: "26.04.15"
+    const d = h.issued || '';
+    const shortDate = d.length >= 10 ? d.slice(2).replace(/-/g,'.') : d.replace(/-/g,'.');
+    // 멘토(상담) 합치기
+    let mentorStr = h.mentor || '—';
+    if (h.counselor && h.counselor !== h.mentor) mentorStr += ` (${h.counselor})`;
     row.innerHTML = `
-      <div class="col-date">${dateStr}<div style="font-size:9px; color:#A8A49C; margin-top:2px;">저장 ${savedAt}</div></div>
-      <div>
-        <div class="col-student">${h.student || '—'}</div>
-        <div class="col-program">${h.program || '—'}</div>
-      </div>
-      <div class="col-mentor">${h.mentor || '—'}</div>
-      <div class="col-mentor">${h.counselor || '—'}</div>
-      <div class="col-amount">${fmt(h.finalTotal)}<div style="font-size:9px; color:#A8A49C; font-weight:400; margin-top:2px;">${h.courseCount}과목</div></div>
-      <div class="col-actions">
-        <button class="hist-btn del" data-del="${h.id}" title="삭제">×</button>
-      </div>
+      <div class="col-date">${shortDate}</div>
+      <div class="col-student">${h.student || '—'}</div>
+      <div class="col-contact">${h.contact || '—'}</div>
+      <div class="col-mentor">${mentorStr}</div>
+      <div class="col-amount">${fmt(h.finalTotal)}</div>
+      <div class="col-actions"><button class="hist-btn del" data-del="${h.id}" title="삭제">×</button></div>
     `;
     row.onclick = async (e) => {
       if (e.target.dataset.del) {
@@ -1809,6 +1823,7 @@ function restoreQuote(h) {
   state.editingQuoteId = h.id;
   // input fields
   document.getElementById('student').value = h.student || '';
+  document.getElementById('contact').value = h.contact || '';
   document.getElementById('issued').value = h.issued || '';
   document.getElementById('program').value = snap.programInput || '';
   document.getElementById('percentInput').value = snap.percent || 0;
@@ -1852,6 +1867,7 @@ function resetAllSilent() {
   state.discountMode = 'free';
   state.promotions = [];
   document.getElementById('student').value = '';
+  document.getElementById('contact').value = '';
   document.getElementById('program').value = '';
   document.getElementById('percentInput').value = 0;
   document.getElementById('directInput').value = 0;
