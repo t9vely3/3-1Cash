@@ -142,25 +142,36 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-total-amount .cur { font-size: 12px; color: #6B6862; font-weight: 500; margin-right: 6px; letter-spacing: 0; }
 .q-total-amount .won { font-size: 13px; color: #6B6862; font-weight: 500; margin-left: 4px; }
 
-/* 하단 레이아웃: 프로모션·추가항목 → 합계·최종액 (세로 1컬럼) */
-.q-bottom-section { margin-top: 28px; }
+/* 하단 블록: 프로모션 → 추가 → 합계 → 최종납부액 하나의 연속된 카드처럼 */
+.q-bottom-section { margin-top: 32px; background: #FBF9F0; border-left: 3px solid #B8860B; padding: 4px 0; }
 
-/* 추가 항목 박스 (따즈아·ACP) */
-.q-addons-box { background: #FFFFFF; border: 0.5px solid #C4BFB4; padding: 14px 20px; margin-bottom: 14px; }
-.q-addons-title { font-size: 11px; letter-spacing: 0.5px; color: #4A4843; font-weight: 700; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 0.5px solid #E5E2D9; }
+/* 프로모션 박스 (맨 위) */
+.q-promotions-box { padding: 18px 24px 14px; border-bottom: 0.5px solid #E8DFC4; background: transparent; }
+.q-promotions-title { font-size: 10px; letter-spacing: 1px; color: #9C6F00; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+.q-promo-item { padding: 8px 0; border-bottom: 0.5px dashed #D8B85C; }
+.q-promo-item:last-child { border-bottom: none; padding-bottom: 0; }
+.q-promo-item:first-of-type { padding-top: 0; }
+.q-promo-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.q-promo-name { font-size: 13px; font-weight: 700; color: #0F0F0F; }
+.q-promo-deadline { font-size: 10px; color: #9C6F00; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.3px; }
+.q-promo-desc { font-size: 11px; color: #4A4843; line-height: 1.7; font-weight: 400; }
+
+/* 추가 항목 박스 (중간) */
+.q-addons-box { padding: 14px 24px; border-bottom: 0.5px solid #E8DFC4; background: transparent; }
+.q-addons-title { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
 .q-addons-list { display: flex; flex-direction: column; gap: 4px; }
-.q-addon { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
+.q-addon { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
 .q-addon .aname { font-size: 12.5px; color: #0F0F0F; font-weight: 500; }
 .q-addon .aamount { font-size: 12.5px; font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
 
-/* 합계 박스 */
-.q-summary-box { background: #FBF9F0; padding: 22px 24px 24px; border-left: 3px solid #B8860B; }
-.q-sum-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 13px; }
+/* 합계 박스 (하단) - 이제 배경 없이 섹션 안에 바로 들어감 */
+.q-summary-box { padding: 18px 24px 22px; background: transparent; }
+.q-sum-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; font-size: 13px; }
 .q-sum-row .lbl { color: #4A4843; font-weight: 500; }
 .q-sum-row .val { font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
 .q-sum-row.minus .val { color: #9C2626; }
 .q-sum-row.plus .val { color: #1F1F1F; }
-.q-sum-final { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 16px; border-top: 1.5px solid #0F0F0F; }
+.q-sum-final { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; padding-top: 14px; border-top: 1.5px solid #0F0F0F; }
 .q-sum-final .lbl { font-size: 14px; color: #0F0F0F; font-weight: 700; letter-spacing: 0.3px; }
 .q-sum-final .val { font-size: 30px; color: #0F0F0F; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; line-height: 1; }
 .q-sum-final .val .won { font-size: 14px; color: #6B6862; font-weight: 600; margin-left: 4px; }
@@ -323,24 +334,24 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-addon .aname { font-size: 10.5px !important; }
   .quotation .q-addon .ameta { font-size: 9px !important; }
   .quotation .q-addon .aamount { font-size: 10.5px !important; }
-  .quotation .q-bottom-section { margin-top: 12px !important; }
-  .quotation .q-summary-box { padding: 12px 14px 14px !important; }
-  .quotation .q-sum-row { padding: 3px 0 !important; font-size: 10px !important; }
-  .quotation .q-sum-final { margin-top: 8px !important; padding-top: 8px !important; }
-  .quotation .q-sum-final .lbl { font-size: 11px !important; }
-  .quotation .q-sum-final .val { font-size: 20px !important; }
-  .quotation .q-sum-final .val .won { font-size: 10px !important; }
-  .quotation .q-addons-box { padding: 8px 14px !important; margin-bottom: 8px !important; }
-  .quotation .q-addons-title { font-size: 9px !important; margin-bottom: 4px !important; padding-bottom: 3px !important; }
-  .quotation .q-addon { padding: 2px 0 !important; }
-  .quotation .q-addon .aname { font-size: 10px !important; }
-  .quotation .q-addon .aamount { font-size: 10px !important; }
-  .quotation .q-promotions-box { margin-bottom: 8px !important; padding: 8px 14px !important; }
-  .quotation .q-promotions-title { font-size: 9px !important; margin-bottom: 4px !important; }
-  .quotation .q-promo-item { padding: 4px 0 !important; }
+  .quotation .q-bottom-section { margin-top: 12px !important; padding: 2px 0 !important; }
+  .quotation .q-promotions-box { padding: 8px 14px 6px !important; }
+  .quotation .q-promotions-title { font-size: 8.5px !important; margin-bottom: 4px !important; }
+  .quotation .q-promo-item { padding: 3px 0 !important; }
   .quotation .q-promo-name { font-size: 10px !important; }
   .quotation .q-promo-deadline { font-size: 8px !important; }
   .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.4 !important; }
+  .quotation .q-addons-box { padding: 6px 14px !important; }
+  .quotation .q-addons-title { font-size: 8.5px !important; margin-bottom: 3px !important; }
+  .quotation .q-addon { padding: 1px 0 !important; }
+  .quotation .q-addon .aname { font-size: 10px !important; }
+  .quotation .q-addon .aamount { font-size: 10px !important; }
+  .quotation .q-summary-box { padding: 8px 14px 10px !important; }
+  .quotation .q-sum-row { padding: 2px 0 !important; font-size: 10px !important; }
+  .quotation .q-sum-final { margin-top: 6px !important; padding-top: 6px !important; }
+  .quotation .q-sum-final .lbl { font-size: 11px !important; }
+  .quotation .q-sum-final .val { font-size: 20px !important; }
+  .quotation .q-sum-final .val .won { font-size: 10px !important; }
   .quotation .q-policies { margin-top: 14px !important; padding-top: 10px !important; }
   .quotation .q-policy-block { margin-bottom: 10px !important; }
   .quotation .q-policy-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
