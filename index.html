@@ -171,6 +171,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-sum-row .val { font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
 .q-sum-row.minus .val { color: #9C2626; }
 .q-sum-row.plus .val { color: #1F1F1F; }
+.q-sum-detail { font-size: 11px; color: #8C8A82; padding: 0 0 6px; font-weight: 400; letter-spacing: 0.1px; }
 .q-sum-final { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 16px; border-top: 2px solid #0F0F0F; }
 .q-sum-final .lbl { font-size: 15px; color: #0F0F0F; font-weight: 800; letter-spacing: 0.3px; }
 .q-sum-final .val { font-size: 32px; color: #0F0F0F; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; line-height: 1; }
@@ -347,6 +348,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-addon .aname, .quotation .q-addon .aamount { font-size: 10px !important; }
   .quotation .q-summary-box { padding: 8px 12px 10px !important; }
   .quotation .q-sum-row { padding: 2px 0 !important; font-size: 10px !important; }
+  .quotation .q-sum-detail { font-size: 9px !important; padding: 0 0 3px !important; }
   .quotation .q-sum-final { margin-top: 6px !important; padding-top: 6px !important; }
   .quotation .q-sum-final .lbl { font-size: 11px !important; }
   .quotation .q-sum-final .val { font-size: 20px !important; }
@@ -743,6 +745,18 @@ function saveMaster() {
 
 // ============ HELPERS ============
 function fmt(n) { return Number(n||0).toLocaleString('ko-KR'); }
+// Google Sheet는 날짜를 Date 객체·ISO 타임스탬프 등으로 돌려줌 → 항상 "26.04.15" 형식으로 변환
+function toShortDate(raw) {
+  if (!raw) return '—';
+  let s = String(raw);
+  // ISO 형식 "2026-04-15T15:00:00.000Z" 또는 "2026-04-15" → 앞 10자만
+  if (s.length > 10 && s.includes('T')) s = s.slice(0, 10);
+  if (s.length > 10 && s.includes('-')) s = s.slice(0, 10);
+  // "2026-04-15" → "26.04.15"
+  if (s.length === 10 && s[4] === '-') return s.slice(2).replace(/-/g, '.');
+  // 이미 "26.04.15" 형식이면 그대로
+  return s.replace(/-/g, '.');
+}
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -1065,6 +1079,13 @@ function renderPreview() {
   }
   if (r.addonTotal > 0) {
     summaryHtml += `<div class="q-sum-row plus"><span class="lbl">자격증 및 강의 신청</span><span class="val">+ ${fmt(r.addonTotal)}</span></div>`;
+    // 별도판매 세부내역
+    let addonDetail = [];
+    if (r.ddObj) addonDetail.push(r.ddObj.label + ' ' + fmt(r.ddObj.fee));
+    if (r.acpObj) addonDetail.push(r.acpObj.label + ' ' + fmt(r.acpObj.fee));
+    if (addonDetail.length > 0) {
+      summaryHtml += `<div class="q-sum-detail">${addonDetail.join(' · ')}</div>`;
+    }
   }
   summaryHtml += `<div class="q-sum-final"><span class="lbl">최종 납부액</span><span class="val">${fmt(r.finalTotal)}<span class="won">원</span></span></div>`;
   summaryHtml += `</div>`;
@@ -1599,7 +1620,24 @@ let HISTORY_CACHE = [];
 
 async function fetchHistory() {
   try {
-    HISTORY_CACHE = await apiCall('list_quotes') || [];
+    const raw = await apiCall('list_quotes') || [];
+    // Google Sheet에서 오는 데이터 타입 정규화
+    HISTORY_CACHE = raw.map(h => ({
+      ...h,
+      issued: String(h.issued || '').slice(0, 10),
+      savedAt: String(h.savedAt || ''),
+      student: String(h.student || ''),
+      contact: String(h.contact || ''),
+      mentor: String(h.mentor || ''),
+      counselor: String(h.counselor || ''),
+      program: String(h.program || ''),
+      courseCount: Number(h.courseCount) || 0,
+      subtotal: Number(h.subtotal) || 0,
+      totalDiscount: Number(h.totalDiscount) || 0,
+      addonTotal: Number(h.addonTotal) || 0,
+      finalTotal: Number(h.finalTotal) || 0,
+      snapshot: (typeof h.snapshot === 'string') ? (() => { try { return JSON.parse(h.snapshot); } catch(e) { return null; } })() : (h.snapshot || null),
+    }));
     return HISTORY_CACHE;
   } catch (e) {
     console.warn('서버에서 견적 이력 로드 실패', e);
@@ -1778,18 +1816,19 @@ function renderHistory() {
   hist.forEach(h => {
     const row = document.createElement('div');
     row.className = 'history-item';
-    // 날짜 포맷: "26.04.15"
-    const d = h.issued || '';
-    const shortDate = d.length >= 10 ? d.slice(2).replace(/-/g,'.') : d.replace(/-/g,'.');
+    // 날짜: ISO 타임스탬프·Date 객체·문자열 모두 처리 → "26.04.15"
+    const shortDate = toShortDate(h.issued || h.savedAt);
     // 멘토(상담) 합치기
     let mentorStr = h.mentor || '—';
     if (h.counselor && h.counselor !== h.mentor) mentorStr += ` (${h.counselor})`;
+    // 금액: 시트에서 문자열로 올 수 있으므로 Number 변환
+    const amount = Number(h.finalTotal) || 0;
     row.innerHTML = `
       <div class="col-date">${shortDate}</div>
       <div class="col-student">${h.student || '—'}</div>
       <div class="col-contact">${h.contact || '—'}</div>
       <div class="col-mentor">${mentorStr}</div>
-      <div class="col-amount">${fmt(h.finalTotal)}</div>
+      <div class="col-amount">${fmt(amount)}</div>
       <div class="col-actions"><button class="hist-btn del" data-del="${h.id}" title="삭제">×</button></div>
     `;
     row.onclick = async (e) => {
