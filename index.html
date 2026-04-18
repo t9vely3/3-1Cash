@@ -146,23 +146,15 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-bottom-section { margin-top: 36px; }
 
 /* 프로모션 박스 */
-.q-promotions-box { padding: 18px 22px 14px; margin-bottom: 16px; background: #FFFFFF; border: 0.5px solid #D8D3C8; }
-.q-promotions-title { font-size: 10px; letter-spacing: 1px; color: #9C6F00; font-weight: 700; margin-bottom: 12px; }
-.q-promo-item { padding: 8px 0; border-bottom: 0.5px dashed #E5E2D9; }
+.q-promotions-box { padding: 18px 22px 14px; margin-bottom: 16px; background: #F5F4F0; border: 0.5px solid #D8D3C8; }
+.q-promotions-title { font-size: 10px; letter-spacing: 1px; color: #4A4843; font-weight: 700; margin-bottom: 12px; }
+.q-promo-item { padding: 8px 0; border-bottom: 0.5px dashed #D8D3C8; }
 .q-promo-item:last-child { border-bottom: none; padding-bottom: 0; }
 .q-promo-item:first-of-type { padding-top: 0; }
 .q-promo-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
 .q-promo-name { font-size: 13px; font-weight: 700; color: #0F0F0F; }
-.q-promo-deadline { font-size: 10px; color: #9C6F00; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.3px; }
+.q-promo-deadline { font-size: 10px; color: #6B6862; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.3px; }
 .q-promo-desc { font-size: 11px; color: #4A4843; line-height: 1.7; font-weight: 400; }
-
-/* 추가 항목 박스 */
-.q-addons-box { padding: 16px 22px; margin-bottom: 16px; background: #FFFFFF; border: 0.5px solid #D8D3C8; }
-.q-addons-title { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid #E5E2D9; }
-.q-addons-list { display: flex; flex-direction: column; gap: 6px; }
-.q-addon { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
-.q-addon .aname { font-size: 13px; color: #0F0F0F; font-weight: 500; }
-.q-addon .aamount { font-size: 13px; font-variant-numeric: tabular-nums; color: #0F0F0F; font-weight: 600; }
 
 /* 합계 박스 */
 .q-summary-box { padding: 20px 22px 24px; background: #FFFFFF; border: 0.5px solid #D8D3C8; }
@@ -342,10 +334,6 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-promo-name { font-size: 10px !important; }
   .quotation .q-promo-deadline { font-size: 8px !important; }
   .quotation .q-promo-desc { font-size: 9px !important; line-height: 1.4 !important; }
-  .quotation .q-addons-box { padding: 6px 12px !important; margin-bottom: 8px !important; }
-  .quotation .q-addons-title { font-size: 8.5px !important; margin-bottom: 3px !important; padding-bottom: 3px !important; }
-  .quotation .q-addon { padding: 1px 0 !important; }
-  .quotation .q-addon .aname, .quotation .q-addon .aamount { font-size: 10px !important; }
   .quotation .q-summary-box { padding: 8px 12px 10px !important; }
   .quotation .q-sum-row { padding: 2px 0 !important; font-size: 10px !important; }
   .quotation .q-sum-detail { font-size: 9px !important; padding: 0 0 3px !important; }
@@ -359,7 +347,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-policy-list li { font-size: 9px !important; padding: 2px 0 2px 18px !important; line-height: 1.5 !important; }
   /* 페이지 나눔 방지 */
   .q-row, .q-addon, .q-policy-list li, .q-promo-item { page-break-inside: avoid; break-inside: avoid; }
-  .q-summary-box, .q-bottom-section, .q-addons-box, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
+  .q-summary-box, .q-bottom-section, .q-promotions-box, .q-policies { page-break-inside: avoid; break-inside: avoid; }
 }
 </style>
 </head>
@@ -1031,17 +1019,7 @@ function renderPreview() {
     });
   }
 
-  let addonHtml = '';
-  if (r.ddObj || r.acpObj) {
-    addonHtml = `
-      <div class="q-addons-list">
-        ${r.ddObj ? `<div class="q-addon"><div class="aname">${r.ddObj.label}</div><div class="aamount">${fmt(r.ddObj.fee)}</div></div>` : ''}
-        ${r.acpObj ? `<div class="q-addon"><div class="aname">${r.acpObj.label}</div><div class="aamount">${fmt(r.acpObj.fee)}</div></div>` : ''}
-      </div>
-    `;
-  }
-
-  // 좌측: 적용 프로모션 + 추가 항목
+  // 적용 프로모션
   const activePromos = state.promotions.filter(p => (p.name||'').trim() !== '');
   let leftColHtml = '';
   if (activePromos.length > 0) {
@@ -1059,12 +1037,6 @@ function renderPreview() {
         `).join('')}
       </div>
     `;
-  }
-  if (addonHtml) {
-    leftColHtml += `<div class="q-addons-box">
-      <div class="q-addons-title">추가 항목</div>
-      ${addonHtml}
-    </div>`;
   }
 
   // 우측: 합계 + 최종 납부액 통합 박스
@@ -1621,27 +1593,49 @@ let HISTORY_CACHE = [];
 async function fetchHistory() {
   try {
     const raw = await apiCall('list_quotes') || [];
-    // Google Sheet에서 오는 데이터 타입 정규화
-    HISTORY_CACHE = raw.map(h => ({
-      ...h,
-      issued: String(h.issued || '').slice(0, 10),
-      savedAt: String(h.savedAt || ''),
-      student: String(h.student || ''),
-      contact: String(h.contact || ''),
-      mentor: String(h.mentor || ''),
-      counselor: String(h.counselor || ''),
-      program: String(h.program || ''),
-      courseCount: Number(h.courseCount) || 0,
-      subtotal: Number(h.subtotal) || 0,
-      totalDiscount: Number(h.totalDiscount) || 0,
-      addonTotal: Number(h.addonTotal) || 0,
-      finalTotal: Number(h.finalTotal) || 0,
-      snapshot: (typeof h.snapshot === 'string') ? (() => { try { return JSON.parse(h.snapshot); } catch(e) { return null; } })() : (h.snapshot || null),
-    }));
+    // 기존 캐시의 snapshot을 보존 (서버에서 깨져서 올 수 있으므로)
+    const localMap = new Map();
+    HISTORY_CACHE.forEach(h => { if (h.snapshot) localMap.set(h.id, h.snapshot); });
+
+    HISTORY_CACHE = raw.map(h => {
+      // Google Sheet에서 오는 데이터 타입 정규화
+      const issued = String(h.issued || '');
+      // snapshot 안전 파싱
+      let snapshot = null;
+      if (h.snapshot) {
+        if (typeof h.snapshot === 'object' && h.snapshot !== null) {
+          snapshot = h.snapshot;
+        } else if (typeof h.snapshot === 'string') {
+          try { snapshot = JSON.parse(h.snapshot); } catch(e) { snapshot = null; }
+        }
+      }
+      // 서버 snapshot이 깨졌으면 로컬 캐시에서 복구
+      if (!snapshot || !snapshot.selected) {
+        const local = localMap.get(h.id);
+        if (local && local.selected) snapshot = local;
+      }
+
+      return {
+        ...h,
+        id: String(h.id || ''),
+        issued: issued.length > 10 ? issued.slice(0, 10) : issued,
+        savedAt: String(h.savedAt || ''),
+        student: String(h.student || ''),
+        contact: String(h.contact || ''),
+        mentor: String(h.mentor || ''),
+        counselor: String(h.counselor || ''),
+        program: String(h.program || ''),
+        courseCount: Number(h.courseCount) || 0,
+        subtotal: Number(h.subtotal) || 0,
+        totalDiscount: Number(h.totalDiscount) || 0,
+        addonTotal: Number(h.addonTotal) || 0,
+        finalTotal: Number(h.finalTotal) || 0,
+        snapshot,
+      };
+    });
     return HISTORY_CACHE;
   } catch (e) {
     console.warn('서버에서 견적 이력 로드 실패', e);
-    toast('서버 연결 실패 — 이력 로드 실패');
     return HISTORY_CACHE;
   }
 }
@@ -1756,8 +1750,14 @@ async function confirmSave(mode) {
   try {
     await saveQuoteToServer(snap);
     state.editingQuoteId = snap.id;
+    // 캐시 업데이트 (서버에서 다시 안 받고 로컬 snap 유지 — snapshot 깨짐 방지)
     HISTORY_CACHE = HISTORY_CACHE.filter(h => h.id !== snap.id);
-    HISTORY_CACHE.unshift(snap);
+    HISTORY_CACHE.unshift({
+      ...snap,
+      finalTotal: Number(snap.finalTotal) || 0,
+      subtotal: Number(snap.subtotal) || 0,
+      addonTotal: Number(snap.addonTotal) || 0,
+    });
     updateEditingBanner();
     closeSaveDialog();
     toast(mode === 'overwrite' ? '견적이 덮어쓰기 저장되었습니다' : '견적이 저장되었습니다 (전체 공유)');
