@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>학생 상담 시각자료 보드</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --line: #e5e8f0;
+      --text: #1f2430;
+      --muted: #6b7380;
+      --primary: #3b6ef3;
+      --danger: #d8354a;
+      --shadow: 0 10px 25px rgba(31, 36, 48, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 36px auto 64px;
+      padding: 0 16px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 16px;
+      position: sticky;
+      top: 16px;
+      align-self: start;
+    }
+
+    .label {
+      display: block;
+      margin: 14px 0 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 110, 243, 0.14);
+    }
+
+    textarea { min-height: 88px; resize: vertical; }
+
+    .dropzone {
+      margin-top: 8px;
+      border: 2px dashed #c7d2f8;
+      border-radius: 12px;
+      padding: 18px 12px;
+      text-align: center;
+      color: #4f5f95;
+      background: #f7f9ff;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--primary);
+      background: #eef3ff;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-light {
+      background: #eff2fa;
+      color: #37425e;
+    }
+
+    .hint {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #eef2fa;
+      display: block;
+    }
+
+    .meta {
+      padding: 10px;
+    }
+
+    .meta h3 {
+      font-size: 14px;
+      margin: 0 0 6px;
+      font-weight: 700;
+    }
+
+    .meta p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      min-height: 36px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 11px;
+      background: #edf2ff;
+      color: #3457b3;
+      border-radius: 99px;
+      padding: 5px 9px;
+      font-weight: 700;
+    }
+
+    .meta-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+      gap: 6px;
+    }
+
+    .btn-mini {
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 8px;
+    }
+
+    .btn-danger {
+      background: #ffe9ed;
+      color: var(--danger);
+    }
+
+    .empty {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .panel { position: static; }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <div>
+        <h1>학생 상담 시각자료 보드</h1>
+        <p class="sub">상담 시 보여줄 이미지 자료를 업로드하고 분류/검색할 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="card panel">
+        <h2 style="margin:0;font-size:17px;">자료 업로드</h2>
+
+        <label class="label" for="title">제목</label>
+        <input id="title" type="text" placeholder="예: 포트폴리오 우수 사례" />
+
+        <label class="label" for="category">카테고리</label>
+        <select id="category">
+          <option value="학습로드맵">학습로드맵</option>
+          <option value="진로/취업">진로/취업</option>
+          <option value="성취사례">성취사례</option>
+          <option value="동기부여">동기부여</option>
+          <option value="기타">기타</option>
+        </select>
+
+        <label class="label" for="note">설명/상담 포인트</label>
+        <textarea id="note" placeholder="학생에게 어떤 맥락으로 보여줄 자료인지 간단히 기록하세요."></textarea>
+
+        <label class="label">이미지 파일</label>
+        <input id="fileInput" type="file" accept="image/*" hidden />
+        <div id="dropzone" class="dropzone">이미지를 드래그하거나 클릭해 선택하세요.</div>
+
+        <div class="actions">
+          <button id="saveBtn" class="btn-primary">자료 저장</button>
+          <button id="resetBtn" class="btn-light" type="button">초기화</button>
+        </div>
+
+        <p class="hint">브라우저 <b>로컬 저장소</b>에 저장됩니다. 같은 PC/브라우저에서만 유지됩니다.</p>
+      </aside>
+
+      <section class="card content">
+        <div class="toolbar">
+          <input id="searchInput" type="text" placeholder="제목/설명 검색" />
+          <select id="filterCategory">
+            <option value="전체">전체 카테고리</option>
+            <option value="학습로드맵">학습로드맵</option>
+            <option value="진로/취업">진로/취업</option>
+            <option value="성취사례">성취사례</option>
+            <option value="동기부여">동기부여</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+
+        <div id="gallery" class="grid"></div>
+        <div id="emptyState" class="empty" style="display:none;">
+          아직 등록된 자료가 없습니다.<br />왼쪽에서 첫 자료를 업로드해 보세요.
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'counseling_materials_v1';
+
+    const titleEl = document.getElementById('title');
+    const categoryEl = document.getElementById('category');
+    const noteEl = document.getElementById('note');
+    const fileInputEl = document.getElementById('fileInput');
+    const dropzoneEl = document.getElementById('dropzone');
+    const saveBtnEl = document.getElementById('saveBtn');
+    const resetBtnEl = document.getElementById('resetBtn');
+    const galleryEl = document.getElementById('gallery');
+    const searchEl = document.getElementById('searchInput');
+    const filterEl = document.getElementById('filterCategory');
+    const emptyStateEl = document.getElementById('emptyState');
+
+    let selectedImageData = '';
+    let materials = load();
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function persist() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(materials));
+    }
+
+    function resetForm() {
+      titleEl.value = '';
+      noteEl.value = '';
+      categoryEl.value = '학습로드맵';
+      fileInputEl.value = '';
+      selectedImageData = '';
+      dropzoneEl.textContent = '이미지를 드래그하거나 클릭해 선택하세요.';
+    }
+
+    function pickFile(file) {
+      if (!file || !file.type.startsWith('image/')) {
+        alert('이미지 파일만 업로드할 수 있습니다.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        selectedImageData = event.target.result;
+        dropzoneEl.textContent = `선택됨: ${file.name}`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+    }
+
+    function filtered() {
+      const keyword = searchEl.value.trim().toLowerCase();
+      const selectedCategory = filterEl.value;
+
+      return materials.filter((item) => {
+        const hitKeyword = !keyword || item.title.toLowerCase().includes(keyword) || item.note.toLowerCase().includes(keyword);
+        const hitCategory = selectedCategory === '전체' || item.category === selectedCategory;
+        return hitKeyword && hitCategory;
+      });
+    }
+
+    function render() {
+      const list = filtered();
+      galleryEl.innerHTML = '';
+
+      if (!list.length) {
+        emptyStateEl.style.display = 'block';
+        return;
+      }
+
+      emptyStateEl.style.display = 'none';
+
+      for (const item of list) {
+        const card = document.createElement('article');
+        card.className = 'item';
+        card.innerHTML = `
+          <img class="thumb" src="${item.imageData}" alt="${item.title}" />
+          <div class="meta">
+            <h3>${item.title}</h3>
+            <p>${item.note || '설명 없음'}</p>
+            <span class="tag">${item.category}</span>
+            <p style="margin-top:8px;font-size:11px;">등록일 ${formatDate(item.createdAt)}</p>
+            <div class="meta-actions">
+              <button class="btn-mini btn-light" data-id="${item.id}" data-action="download">다운로드</button>
+              <button class="btn-mini btn-danger" data-id="${item.id}" data-action="delete">삭제</button>
+            </div>
+          </div>
+        `;
+        galleryEl.appendChild(card);
+      }
+    }
+
+    function saveMaterial() {
+      if (!titleEl.value.trim()) {
+        alert('제목을 입력하세요.');
+        return;
+      }
+
+      if (!selectedImageData) {
+        alert('이미지 파일을 선택하세요.');
+        return;
+      }
+
+      materials.unshift({
+        id: crypto.randomUUID(),
+        title: titleEl.value.trim(),
+        category: categoryEl.value,
+        note: noteEl.value.trim(),
+        imageData: selectedImageData,
+        createdAt: new Date().toISOString()
+      });
+
+      persist();
+      render();
+      resetForm();
+    }
+
+    dropzoneEl.addEventListener('click', () => fileInputEl.click());
+
+    fileInputEl.addEventListener('change', (event) => {
+      pickFile(event.target.files[0]);
+    });
+
+    dropzoneEl.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropzoneEl.classList.add('dragover');
+    });
+
+    dropzoneEl.addEventListener('dragleave', () => {
+      dropzoneEl.classList.remove('dragover');
+    });
+
+    dropzoneEl.addEventListener('drop', (event) => {
+      event.preventDefault();
+      dropzoneEl.classList.remove('dragover');
+      pickFile(event.dataTransfer.files[0]);
+    });
+
+    saveBtnEl.addEventListener('click', saveMaterial);
+    resetBtnEl.addEventListener('click', resetForm);
+    searchEl.addEventListener('input', render);
+    filterEl.addEventListener('change', render);
+
+    galleryEl.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+
+      const id = button.dataset.id;
+      const action = button.dataset.action;
+      const material = materials.find((item) => item.id === id);
+      if (!material) return;
+
+      if (action === 'delete') {
+        if (!confirm('이 자료를 삭제할까요?')) return;
+        materials = materials.filter((item) => item.id !== id);
+        persist();
+        render();
+      }
+
+      if (action === 'download') {
+        const link = document.createElement('a');
+        link.href = material.imageData;
+        link.download = `${material.title}.png`;
+        link.click();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
