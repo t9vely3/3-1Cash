@@ -1757,19 +1757,6 @@ async function confirmSave(mode) {
   }
 }
 
-function offerPostPrintSave() {
-  // 인쇄 직후 저장 권유 (이미 인쇄 후에만 호출)
-  setTimeout(() => {
-    const r = calc();
-    if (r.items.length === 0) return;
-    const student = document.getElementById('student').value.trim();
-    if (!student) return;
-    if (confirm('인쇄가 완료되었습니다. 이 견적을 저장 이력에 추가하시겠습니까?')) {
-      saveQuoteFlow();
-    }
-  }, 800);
-}
-
 async function openHistory() {
   document.getElementById('historyModal').classList.add('show');
   // 캐시된 데이터 즉시 표시
@@ -1977,8 +1964,19 @@ function importHistory(e) {
 // ============ PRINT ============
 function printQuotation() {
   window.print();
-  offerPostPrintSave();
 }
+// 인쇄 완료 후 저장 권유 — afterprint 이벤트 사용 (더 안정적)
+window.addEventListener('afterprint', () => {
+  setTimeout(() => {
+    const r = calc();
+    if (r.items.length === 0) return;
+    const student = document.getElementById('student').value.trim();
+    if (!student) return;
+    if (confirm('인쇄가 완료되었습니다. 이 견적을 저장 이력에 추가하시겠습니까?')) {
+      saveQuoteFlow();
+    }
+  }, 300);
+});
 
 // ============ INIT ============
 document.addEventListener('keydown', (e) => {
