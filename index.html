@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBS Academy 견적서 시스템 v3</title>
+<title>SBS Academy 견적서 시스템</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;700&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -253,7 +258,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .toast.show { opacity: 1; }
 
 .history-list { max-height: 60vh; overflow-y: auto; }
-.history-item { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 36px; gap: 8px; padding: 12px 24px; border-bottom: 0.5px solid #ECE8DE; align-items: center; cursor: pointer; transition: background 0.1s; }
+.history-item { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 56px; gap: 8px; padding: 12px 24px; border-bottom: 0.5px solid #ECE8DE; align-items: center; cursor: pointer; transition: background 0.1s; }
 .history-item:hover { background: #FBF9F0; }
 .history-item .col-date { font-size: 12px; color: #0F0F0F; font-weight: 500; font-variant-numeric: tabular-nums; }
 .history-item .col-student { font-size: 13px; color: #0F0F0F; font-weight: 600; }
@@ -264,7 +269,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .history-item .hist-btn { background: none; border: 0.5px solid #D8D3C8; padding: 4px 8px; cursor: pointer; font-size: 11px; font-family: inherit; color: #4A4843; }
 .history-item .hist-btn:hover { border-color: #0F0F0F; color: #0F0F0F; }
 .history-item .hist-btn.del:hover { border-color: #C00; color: #C00; }
-.history-header { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 36px; gap: 8px; padding: 12px 24px; background: #F5F4F0; border-bottom: 1px solid #0F0F0F; font-size: 10px; color: #6B6862; font-weight: 700; letter-spacing: 0.5px; }
+.history-header { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 56px; gap: 8px; padding: 12px 24px; background: #F5F4F0; border-bottom: 1px solid #0F0F0F; font-size: 10px; color: #6B6862; font-weight: 700; letter-spacing: 0.5px; }
 .history-empty { text-align: center; padding: 60px 20px; color: #8C8A82; font-size: 13px; }
 .editing-banner { background: #FFF8E1; border-bottom: 1px solid #B8860B; padding: 10px 26px; font-size: 12px; color: #9C6F00; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .editing-banner button { background: transparent; border: 0.5px solid #9C6F00; color: #9C6F00; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
@@ -370,7 +375,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
       <button onclick="cancelEditing()">새 견적으로 전환</button>
     </div>
     <h1>견적서 작성</h1>
-    <div class="sub">SBS ACADEMY · HONGDAE <span style="color:#0F8A5F; margin-left:6px; font-weight:700;">● CLOUD</span></div>
+    <div class="sub">SBS ACADEMY · HONGDAE <span style="color:#0F8A5F; margin-left:6px; font-weight:700;">● FIRESTORE</span></div>
 
     <div class="field">
       <label>학생명</label>
@@ -566,29 +571,18 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 </div>
 
 <script>
-// ============ API CONFIG ============
-const API_URL = 'https://script.google.com/macros/s/AKfycbw3q4_nL_h4bEqw2jZkpo5WJU3K6gPyg1nvCyiPQQB2rBPRG6NsZ_M6gnCaJsqk7Y8/exec';
+// ============ FIREBASE ============
+firebase.initializeApp({
+  apiKey: "AIzaSyB8qZIVzINN5BGSNd6ojqshNC9RXh7jqKU",
+  authDomain: "cash-eabc1.firebaseapp.com",
+  projectId: "cash-eabc1",
+  storageBucket: "cash-eabc1.firebasestorage.app",
+  messagingSenderId: "8436628517",
+  appId: "1:8436628517:web:3a072098e57c02397353cc"
+});
+const db = firebase.firestore();
+const storage = firebase.storage();
 let SESSION_PASSWORD = sessionStorage.getItem('sbsPassword') || '';
-
-async function apiCall(action, payload = {}) {
-  const body = { action, password: SESSION_PASSWORD, ...payload };
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      // Apps Script doPost는 text/plain으로 와야 CORS preflight 안 걸림
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(body),
-      redirect: 'follow',
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
-    if (!json.ok) throw new Error(json.error || 'unknown');
-    return json.data;
-  } catch (err) {
-    console.error('API error', action, err);
-    throw err;
-  }
-}
 
 // ============ LOCK SCREEN ============
 async function tryUnlock() {
@@ -599,33 +593,38 @@ async function tryUnlock() {
   if (!pw) return;
   btn.disabled = true; btn.textContent = '확인 중...';
   error.textContent = '';
-  SESSION_PASSWORD = pw;
   try {
-    await apiCall('login');
-    sessionStorage.setItem('sbsPassword', pw);
-    document.getElementById('lockScreen').style.display = 'none';
-    initApp();
-  } catch (err) {
-    SESSION_PASSWORD = '';
-    if (String(err).includes('invalid_password')) {
-      error.textContent = '비밀번호가 올바르지 않습니다';
+    const doc = await db.collection('sbs_auth').doc('config').get();
+    if (!doc.exists) { error.textContent = '서버 설정 오류'; btn.disabled = false; btn.textContent = '접속'; return; }
+    const stored = doc.data().password;
+    if (String(pw) === String(stored)) {
+      SESSION_PASSWORD = pw;
+      sessionStorage.setItem('sbsPassword', pw);
+      document.getElementById('lockScreen').style.display = 'none';
+      initApp();
     } else {
-      error.textContent = '서버 연결 실패: ' + err.message;
+      error.textContent = '비밀번호가 올바르지 않습니다';
+      input.value = '';
+      input.focus();
     }
-    input.value = '';
-    input.focus();
-    btn.disabled = false; btn.textContent = '접속';
-    setTimeout(() => { error.textContent = ''; }, 4000);
+  } catch (err) {
+    error.textContent = '서버 연결 실패: ' + err.message;
   }
+  btn.disabled = false; btn.textContent = '접속';
+  setTimeout(() => { error.textContent = ''; }, 4000);
 }
 document.getElementById('lockInput').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') tryUnlock();
 });
-// 세션 패스워드 있으면 자동 시도
 if (SESSION_PASSWORD) {
-  apiCall('login').then(() => {
-    document.getElementById('lockScreen').style.display = 'none';
-    initApp();
+  db.collection('sbs_auth').doc('config').get().then(doc => {
+    if (doc.exists && String(SESSION_PASSWORD) === String(doc.data().password)) {
+      document.getElementById('lockScreen').style.display = 'none';
+      initApp();
+    } else {
+      SESSION_PASSWORD = '';
+      sessionStorage.removeItem('sbsPassword');
+    }
   }).catch(() => {
     SESSION_PASSWORD = '';
     sessionStorage.removeItem('sbsPassword');
@@ -691,24 +690,23 @@ function migrate(data) {
   return data;
 }
 async function loadMaster() {
-  // 1. 서버에서 먼저 시도
+  // 1. Firestore에서 로드
   try {
-    const remote = await apiCall('load_master');
-    if (remote && remote.departments) {
-      MASTER = migrate(remote);
-      // 로컬에도 캐시
+    const doc = await db.collection('sbs_master').doc('data').get();
+    if (doc.exists) {
+      MASTER = migrate(doc.data());
       try { localStorage.setItem('sbsMasterV3', JSON.stringify(MASTER)); } catch(e){}
       return;
     }
   } catch (e) {
-    console.warn('서버 마스터 로드 실패, 로컬로 폴백', e);
+    console.warn('Firestore 마스터 로드 실패, 로컬로 폴백', e);
   }
   // 2. 로컬 캐시
   const local = localStorage.getItem('sbsMasterV3');
   if (local) {
     try { MASTER = migrate(JSON.parse(local)); return; } catch(e) {}
   }
-  // 3. 내장 기본값
+  // 3. data.json
   try {
     const res = await fetch('data.json');
     if (res.ok) { MASTER = migrate(await res.json()); return; }
@@ -717,16 +715,14 @@ async function loadMaster() {
 }
 let masterSaveTimer = null;
 function saveMaster() {
-  // 로컬에 즉시 저장
   localStorage.setItem('sbsMasterV3', JSON.stringify(MASTER));
-  // 서버에는 디바운스 (연속 편집 시 너무 자주 호출 방지)
   if (masterSaveTimer) clearTimeout(masterSaveTimer);
   masterSaveTimer = setTimeout(async () => {
     try {
-      await apiCall('save_master', { master: MASTER });
-      console.log('마스터 서버 동기화 완료');
+      await db.collection('sbs_master').doc('data').set(JSON.parse(JSON.stringify(MASTER)));
+      console.log('마스터 Firestore 동기화 완료');
     } catch (e) {
-      console.warn('마스터 서버 동기화 실패 (로컬은 저장됨)', e);
+      console.warn('마스터 Firestore 동기화 실패', e);
     }
   }, 1500);
 }
@@ -1587,64 +1583,60 @@ function resetMaster() {
   toast('초기 마스터로 복원되었습니다');
 }
 
-// ============ SAVED QUOTES ============
+// ============ SAVED QUOTES (FIRESTORE) ============
 let HISTORY_CACHE = [];
 
 async function fetchHistory() {
   try {
-    const raw = await apiCall('list_quotes') || [];
-    // 기존 캐시의 snapshot을 보존 (서버에서 깨져서 올 수 있으므로)
-    const localMap = new Map();
-    HISTORY_CACHE.forEach(h => { if (h.snapshot) localMap.set(h.id, h.snapshot); });
-
-    HISTORY_CACHE = raw.map(h => {
-      // Google Sheet에서 오는 데이터 타입 정규화
-      const issued = String(h.issued || '');
-      // snapshot 안전 파싱
-      let snapshot = null;
-      if (h.snapshot) {
-        if (typeof h.snapshot === 'object' && h.snapshot !== null) {
-          snapshot = h.snapshot;
-        } else if (typeof h.snapshot === 'string') {
-          try { snapshot = JSON.parse(h.snapshot); } catch(e) { snapshot = null; }
-        }
-      }
-      // 서버 snapshot이 깨졌으면 로컬 캐시에서 복구
-      if (!snapshot || !snapshot.selected) {
-        const local = localMap.get(h.id);
-        if (local && local.selected) snapshot = local;
-      }
-
-      return {
-        ...h,
-        id: String(h.id || ''),
-        issued: issued.length > 10 ? issued.slice(0, 10) : issued,
-        savedAt: String(h.savedAt || ''),
-        student: String(h.student || ''),
-        contact: String(h.contact || ''),
-        mentor: String(h.mentor || ''),
-        counselor: String(h.counselor || ''),
-        program: String(h.program || ''),
-        courseCount: Number(h.courseCount) || 0,
-        subtotal: Number(h.subtotal) || 0,
-        totalDiscount: Number(h.totalDiscount) || 0,
-        addonTotal: Number(h.addonTotal) || 0,
-        finalTotal: Number(h.finalTotal) || 0,
-        snapshot,
+    const snap = await db.collection('sbs_quotes').orderBy('savedAt', 'desc').get();
+    HISTORY_CACHE = snap.docs.map(doc => {
+      const d = doc.data();
+      return { ...d, id: doc.id,
+        finalTotal: Number(d.finalTotal) || 0,
+        subtotal: Number(d.subtotal) || 0,
+        addonTotal: Number(d.addonTotal) || 0,
+        totalDiscount: Number(d.totalDiscount) || 0,
+        courseCount: Number(d.courseCount) || 0,
       };
     });
     return HISTORY_CACHE;
   } catch (e) {
-    console.warn('서버에서 견적 이력 로드 실패', e);
+    console.warn('Firestore 견적 이력 로드 실패', e);
     return HISTORY_CACHE;
   }
 }
 function loadHistory() { return HISTORY_CACHE; }
 async function saveQuoteToServer(snap) {
-  return await apiCall('save_quote', { quote: snap });
+  const docData = JSON.parse(JSON.stringify(snap));
+  await db.collection('sbs_quotes').doc(snap.id).set(docData);
 }
 async function deleteQuoteFromServer(id) {
-  return await apiCall('delete_quote', { id });
+  await db.collection('sbs_quotes').doc(id).delete();
+}
+
+async function generateAndUploadPDF(quoteId, studentName) {
+  try {
+    const el = document.getElementById('quotation');
+    if (!el) return null;
+    toast('PDF 생성 중...');
+    const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#FFFFFF', logging: false });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const imgW = 210, pageH = 297;
+    const imgH = (canvas.height * imgW) / canvas.width;
+    let w = imgW, h = imgH;
+    if (h > pageH) { const r = pageH / h; w = imgW * r; h = pageH; }
+    pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', (210 - w) / 2, 0, w, h);
+    const blob = pdf.output('blob');
+    const ref = storage.ref(`quotation_pdfs/${quoteId}.pdf`);
+    await ref.put(blob, { contentType: 'application/pdf' });
+    const url = await ref.getDownloadURL();
+    toast('PDF 업로드 완료');
+    return url;
+  } catch (e) {
+    console.error('PDF 생성/업로드 실패', e);
+    return null;
+  }
 }
 
 function buildQuoteSnapshot(asNew) {
@@ -1748,21 +1740,19 @@ async function confirmSave(mode) {
   const btns = document.querySelectorAll('#saveDialogFooter button');
   btns.forEach(b => b.disabled = true);
   try {
+    // PDF 생성 + Storage 업로드
+    const pdfUrl = await generateAndUploadPDF(snap.id, snap.student);
+    if (pdfUrl) snap.pdfUrl = pdfUrl;
+    // Firestore에 저장
     await saveQuoteToServer(snap);
     state.editingQuoteId = snap.id;
-    // 캐시 업데이트 (서버에서 다시 안 받고 로컬 snap 유지 — snapshot 깨짐 방지)
     HISTORY_CACHE = HISTORY_CACHE.filter(h => h.id !== snap.id);
-    HISTORY_CACHE.unshift({
-      ...snap,
-      finalTotal: Number(snap.finalTotal) || 0,
-      subtotal: Number(snap.subtotal) || 0,
-      addonTotal: Number(snap.addonTotal) || 0,
-    });
+    HISTORY_CACHE.unshift(snap);
     updateEditingBanner();
     closeSaveDialog();
     toast(mode === 'overwrite' ? '견적이 덮어쓰기 저장되었습니다' : '견적이 저장되었습니다 (전체 공유)');
   } catch (e) {
-    alert('저장 실패: ' + e.message + '\n인터넷 연결을 확인하세요.');
+    alert('저장 실패: ' + e.message);
     btns.forEach(b => b.disabled = false);
   }
 }
@@ -1829,7 +1819,10 @@ function renderHistory() {
       <div class="col-contact">${h.contact || '—'}</div>
       <div class="col-mentor">${mentorStr}</div>
       <div class="col-amount">${fmt(amount)}</div>
-      <div class="col-actions"><button class="hist-btn del" data-del="${h.id}" title="삭제">×</button></div>
+      <div class="col-actions">
+        ${h.pdfUrl ? `<a href="${h.pdfUrl}" target="_blank" class="hist-btn" title="PDF" onclick="event.stopPropagation()">📄</a>` : ''}
+        <button class="hist-btn del" data-del="${h.id}" title="삭제">×</button>
+      </div>
     `;
     row.onclick = async (e) => {
       if (e.target.dataset.del) {
