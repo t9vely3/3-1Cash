@@ -1011,7 +1011,7 @@ function renderPreview() {
       const feeCell = isFree ? `<td class="fee free">무료지원</td>` : `<td class="fee">${fmt(it.course.fee)}</td>`;
       const lastClass = i === r.items.length-1 ? 'last' : '';
       const clickable = state.discountMode === 'free' ? 'clickable' : '';
-      rowsHtml += `<tr class="q-row ${clickable} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${it.course.subject}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${(it.course.desc||'').slice(0,40)}</td>${feeCell}</tr>`;
+      rowsHtml += `<tr class="q-row ${clickable} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${it.course.subject}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${it.course.desc||''}</td>${feeCell}</tr>`;
     });
   }
 
