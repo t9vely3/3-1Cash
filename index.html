@@ -271,6 +271,11 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .history-item .hist-btn.del:hover { border-color: #C00; color: #C00; }
 .history-header { display: grid; grid-template-columns: 80px 1fr 120px 140px 110px 56px; gap: 8px; padding: 12px 24px; background: #F5F4F0; border-bottom: 1px solid #0F0F0F; font-size: 10px; color: #6B6862; font-weight: 700; letter-spacing: 0.5px; }
 .history-empty { text-align: center; padding: 60px 20px; color: #8C8A82; font-size: 13px; }
+.mentor-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 24px; background: #FAF8F4; border-bottom: 0.5px solid #ECE8DE; }
+.mentor-tab { background: #FFFFFF; border: 0.5px solid #D8D3C8; padding: 6px 14px; font-size: 12px; font-family: inherit; color: #4A4843; cursor: pointer; transition: all 0.1s; }
+.mentor-tab:hover { border-color: #0F0F0F; color: #0F0F0F; }
+.mentor-tab.active { background: #1C1B19; border-color: #1C1B19; color: #FAF8F4; font-weight: 600; }
+.mentor-tab .cnt { font-size: 10px; opacity: 0.65; margin-left: 4px; font-variant-numeric: tabular-nums; }
 .editing-banner { background: #FFF8E1; border-bottom: 1px solid #B8860B; padding: 10px 26px; font-size: 12px; color: #9C6F00; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .editing-banner button { background: transparent; border: 0.5px solid #9C6F00; color: #9C6F00; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
 
@@ -542,6 +547,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
       <button class="close" onclick="closeHistory()">×</button>
     </div>
     <div class="modal-body" style="padding: 0;">
+      <div class="mentor-tabs" id="mentorTabs"></div>
       <div id="historyList"></div>
     </div>
     <div class="modal-footer">
@@ -1777,9 +1783,43 @@ async function openHistory() {
 }
 function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
+let historyMentorFilter = '__all__';
+
+function renderMentorTabs(hist) {
+  const wrap = document.getElementById('mentorTabs');
+  if (!wrap) return;
+  // 저장된 견적에서 멘토 목록 추출 (마스터 명단 순서 우선, 명단에 없는 멘토는 뒤에)
+  const counts = {};
+  hist.forEach(h => {
+    const m = h.mentor || '(미지정)';
+    counts[m] = (counts[m] || 0) + 1;
+  });
+  const roster = MASTER.mentors || [];
+  const inRoster = roster.filter(m => counts[m]);
+  const extra = Object.keys(counts).filter(m => !roster.includes(m)).sort();
+  const mentors = [...inRoster, ...extra];
+  // 현재 필터가 사라졌으면 전체로 복귀
+  if (historyMentorFilter !== '__all__' && !counts[historyMentorFilter]) historyMentorFilter = '__all__';
+
+  wrap.innerHTML = '';
+  const mkTab = (label, value, cnt) => {
+    const btn = document.createElement('button');
+    btn.className = 'mentor-tab' + (historyMentorFilter === value ? ' active' : '');
+    btn.innerHTML = `${label}<span class="cnt">${cnt}</span>`;
+    btn.onclick = () => { historyMentorFilter = value; renderHistory(); };
+    wrap.appendChild(btn);
+  };
+  mkTab('전체', '__all__', hist.length);
+  mentors.forEach(m => mkTab(m, m, counts[m]));
+}
+
 function renderHistory() {
   const list = document.getElementById('historyList');
-  const hist = loadHistory();
+  const all = loadHistory();
+  renderMentorTabs(all);
+  const hist = historyMentorFilter === '__all__'
+    ? all
+    : all.filter(h => (h.mentor || '(미지정)') === historyMentorFilter);
   list.innerHTML = '';
   if (hist.length === 0) {
     list.innerHTML = '<div class="history-empty">저장된 견적이 없습니다.</div>';
