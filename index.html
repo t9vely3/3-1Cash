@@ -102,10 +102,16 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-section { font-size: 11px; letter-spacing: 0.5px; color: #0F0F0F; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
 .q-section .hint { font-size: 10px; color: #6B6862; letter-spacing: 0.3px; text-transform: none; font-weight: 400; }
 
-.q-table { width: 100%; font-size: 13px; border-collapse: collapse; font-weight: 400; }.q-table thead tr { border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #6B6862; }
+.q-table { width: 100%; font-size: 13px; border-collapse: collapse; font-weight: 400; table-layout: fixed; }.q-table thead tr { border-top: 1.5px solid #0F0F0F; border-bottom: 0.5px solid #6B6862; }
 .q-table th { text-align: left; padding: 12px 0; font-weight: 700; font-size: 11px; letter-spacing: 0.5px; color: #4A4843; }
 .q-table th.right { text-align: right; }
 .q-table th.hdrag { width: 22px; padding-left: 2px; }
+/* 폭을 고정해 두어야 과목명이 길어도 세부 내용 칸이 밀리지 않는다 */
+.q-table col.c-drag { width: 3%; }
+.q-table col.c-no { width: 4%; }
+.q-table col.c-sub { width: 14%; }
+.q-table col.c-fee { width: 13%; }
+.q-table th, .q-table td { vertical-align: top; word-break: keep-all; overflow-wrap: anywhere; }
 .q-row { cursor: default; transition: background 0.1s; }
 .q-row.clickable { cursor: pointer; }
 .q-row.clickable:hover td { background: #FFF8E1; }
@@ -115,15 +121,14 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-row td.drag { width: 22px; padding-left: 2px; color: #C4BFB4; font-size: 11px; cursor: grab; text-align: center; user-select: none; letter-spacing: -1px; }
 .q-row td.drag:hover { color: #0F0F0F; }
 .q-row td.no { color: #6B6862; width: 40px; font-variant-numeric: tabular-nums; font-size: 12px; padding-left: 2px; font-weight: 500; }
-.q-row td.sub { font-weight: 600; color: #0F0F0F; font-size: 13.5px; }
-.q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; }
+.q-row td.sub { font-weight: 600; color: #0F0F0F; font-size: 13.5px; padding-right: 10px; line-height: 1.45; position: relative; }
+.q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; line-height: 1.45; }
 .q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 600; font-size: 13.5px; }
 .q-row td.fee.free { color: #9C6F00; font-size: 12px; letter-spacing: 0.3px; font-weight: 700; }
 .q-row.last td { border-bottom: 1.5px solid #0F0F0F; }
 .q-row.fixed td.sub { color: #1F1F1F; }
 .q-row.fixed td.no { color: #8C8A82; }
-.q-row .nodisc { display: inline-block; margin-left: 6px; padding: 1px 5px; border: 0.5px solid #C4BFB4; border-radius: 3px; font-size: 9.5px; font-weight: 500; color: #6B6862; letter-spacing: 0.2px; vertical-align: middle; }
-.q-row .x-btn { display: inline-block; width: 18px; height: 18px; line-height: 16px; text-align: center; color: #8C8A82; font-size: 15px; cursor: pointer; margin-left: 8px; vertical-align: middle; opacity: 0; transition: opacity 0.15s; font-weight: 400; border-radius: 3px; }
+.q-row .x-btn { position: absolute; right: 0; top: 10px; width: 18px; height: 18px; line-height: 16px; text-align: center; color: #8C8A82; font-size: 15px; cursor: pointer; opacity: 0; transition: opacity 0.15s; font-weight: 400; border-radius: 3px; background: #FFFFFF; }
 .q-row:hover .x-btn { opacity: 1; }
 .q-row .x-btn:hover { color: #FFFFFF; background: #C00; }
 
@@ -271,6 +276,12 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .mentor-tab .cnt { font-size: 10px; opacity: 0.65; margin-left: 4px; font-variant-numeric: tabular-nums; }
 .editing-banner { background: #FFF8E1; border-bottom: 1px solid #B8860B; padding: 10px 26px; font-size: 12px; color: #9C6F00; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .editing-banner button { background: transparent; border: 0.5px solid #9C6F00; color: #9C6F00; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
+.name-banner { background: #F0F5FF; border-bottom: 1px solid #2A5DB0; padding: 12px 26px; font-size: 12px; color: #1B3F7A; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.name-banner .msg { font-weight: 600; flex: 1 1 100%; line-height: 1.5; }
+.name-banner input { flex: 1 1 140px; padding: 6px 9px; font-size: 12px; border: 0.5px solid #A9BEE0; background: #FFFFFF; outline: none; font-family: inherit; color: #0F0F0F; }
+.name-banner input:focus { border-color: #2A5DB0; }
+.name-banner button { background: #2A5DB0; border: none; color: #FFFFFF; padding: 7px 14px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.name-banner button:hover { background: #1B3F7A; }
 
 /* 잠금화면 */
 .lock-screen { position: fixed; inset: 0; background: #0F0F0F; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; }
@@ -322,6 +333,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   }
   .q-table thead { display: table-header-group; }
   .q-row .x-btn, .q-row td.drag, .q-table th.hdrag { display: none !important; }
+  .q-table col.c-drag { width: 0; }
   /* 인쇄 시 밀도 자동 압축 - 한 장에 맞도록 */
   .quotation .q-header { margin-bottom: 14px !important; padding-bottom: 10px !important; }
   .quotation .q-header::after { width: 60px !important; }
@@ -336,10 +348,13 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-table { font-size: 10px !important; }
   .quotation .q-table th { padding: 6px 0 !important; font-size: 9px !important; }
   .quotation .q-row td { padding: 4px 0 !important; }
-  .quotation .q-row td.no { font-size: 9px !important; width: 28px !important; }
+  .quotation .q-row td.no { font-size: 9px !important; }
+  .quotation .q-table col.c-no { width: 4%; }
+  .quotation .q-table col.c-sub { width: 14%; }
+  .quotation .q-table col.c-fee { width: 12%; }
   .quotation .q-row td.sub { font-size: 10.5px !important; }
   .quotation .q-row td.desc { font-size: 9px !important; }
-  .quotation .q-row td.fee { font-size: 10.5px !important; width: 85px !important; }
+  .quotation .q-row td.fee { font-size: 10.5px !important; }
   .quotation .q-bottom-section { margin-top: 12px !important; }
   .quotation .q-promotions-box { padding: 8px 12px 6px !important; margin-bottom: 8px !important; }
   .quotation .q-promotions-title { font-size: 8.5px !important; margin-bottom: 4px !important; }
@@ -384,6 +399,11 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 
 <div class="app">
   <aside class="panel">
+    <div id="nameBanner" style="display:none;" class="name-banner">
+      <span class="msg" id="nameBannerMsg"></span>
+      <input type="text" id="nameBannerInput" placeholder="예: 김태욱" maxlength="20">
+      <button onclick="saveMyName()">저장</button>
+    </div>
     <div id="editingBanner" style="display:none;" class="editing-banner">
       <span id="editingBannerText"></span>
       <button onclick="cancelEditing()">새 견적으로 전환</button>
@@ -846,6 +866,12 @@ function saveMaster() {
   if (masterSaveTimer) clearTimeout(masterSaveTimer);
   masterSaveTimer = setTimeout(pushMaster, 1500);
 }
+// 지연 없이 지금 바로 서버에 올린다 (설정처럼 한 번에 끝내야 하는 변경용)
+async function flushMaster() {
+  if (masterSaveTimer) { clearTimeout(masterSaveTimer); masterSaveTimer = null; }
+  if (masterConflict || masterOffline) return;
+  await pushMaster();
+}
 
 // 마스터는 문서 하나를 통째로 덮어쓰므로, 개정 번호를 비교해
 // 다른 사람이 먼저 저장한 내용을 조용히 지우는 일을 막는다.
@@ -879,6 +905,23 @@ async function pushMaster() {
 
 // ============ HELPERS ============
 function fmt(n) { return Number(n||0).toLocaleString('ko-KR'); }
+// 별도 판매 옵션명은 "따즈아 3,500,000원(프로모션 적용시) - >" 처럼 길게 적히기도 한다.
+// 표가 지저분해지지 않게 괄호 앞까지만 과목명으로 쓰고 나머지는 세부 내용으로 넘긴다.
+function splitAddonLabel(label) {
+  const raw = String(label || '').trim();
+  // 금액 표기나 괄호가 나오는 지점에서 자른다 ('1년', '6개월' 같은 기간은 이름에 남긴다)
+  const priceAt = raw.search(/\d[\d,]*\s*원/);
+  const parenAt = raw.indexOf('(');
+  const marks = [priceAt, parenAt].filter(i => i > 0);
+  const cut = marks.length ? Math.min.apply(null, marks) : -1;
+  let name = cut > 0 ? raw.slice(0, cut) : raw;
+  let detail = cut > 0 ? raw.slice(cut) : '';
+  const trim = t => t.replace(/^[\s\-–—>·,]+/, '').replace(/[\s\-–—>·,]+$/, '').trim();
+  name = trim(name);
+  detail = trim(detail);
+  if (!name) { name = trim(raw) || '별도 판매'; detail = ''; }
+  return { name, detail };
+}
 // 화면에 넣는 모든 사용자 입력은 이 함수를 거친다 (본문·속성 공용)
 function esc(v) {
   return String(v == null ? '' : v)
@@ -946,17 +989,53 @@ let CURRENT_USER = null;
 function mentorNames() {
   return (MASTER.mentors || []).map(m => m.name).filter(n => n);
 }
-// 로그인 이메일로 멘토 명단을 찾고, 없으면 표시 이름이나 이메일 앞부분을 쓴다
+function currentEmail() {
+  return String((CURRENT_USER && CURRENT_USER.email) || '').trim().toLowerCase();
+}
+// 로그인 이메일에 짝지어진 한글 이름을 찾는다. 못 찾으면 빈 값을 돌려주고
+// 이메일 앞부분(영문)을 이름 대신 쓰지 않는다.
 function resolveStaffName() {
   if (!CURRENT_USER) return '';
-  const email = String(CURRENT_USER.email || '').trim().toLowerCase();
+  const email = currentEmail();
   if (email) {
     const hit = (MASTER.mentors || []).find(m => m.email && m.email === email);
     if (hit && hit.name) return hit.name;
   }
-  const dn = String(CURRENT_USER.displayName || '').trim();
-  if (dn) return dn;
-  return email ? email.split('@')[0] : '';
+  return String(CURRENT_USER.displayName || '').trim();
+}
+// 이름이 아직 연결되지 않은 계정이면 배너로 한 번만 물어본다
+function renderNameBanner() {
+  const bar = document.getElementById('nameBanner');
+  if (!bar) return;
+  if (!CURRENT_USER || resolveStaffName()) { bar.style.display = 'none'; return; }
+  document.getElementById('nameBannerMsg').textContent =
+    `${currentEmail()} 계정에 연결된 이름이 없습니다. 견적서에 찍을 한글 이름을 입력해 주세요.`;
+  bar.style.display = 'flex';
+}
+async function saveMyName() {
+  const inp = document.getElementById('nameBannerInput');
+  const name = inp.value.trim();
+  if (!name) { inp.focus(); return; }
+  const email = currentEmail();
+  MASTER.mentors = MASTER.mentors || [];
+  // 같은 이름이 명단에 있으면 그 항목에 이메일을 붙이고, 없으면 새로 넣는다
+  const sameName = MASTER.mentors.find(m => m.name === name);
+  const sameMail = MASTER.mentors.find(m => m.email && m.email === email);
+  if (sameMail) { sameMail.name = name; }
+  else if (sameName) { sameName.email = email; }
+  else { MASTER.mentors.push({ name: name, email: email }); }
+  saveMaster();
+  await flushMaster();
+  if (CURRENT_USER) CURRENT_USER.displayName = name;
+  // Firebase 계정에도 남겨 두면 다른 기기에서 바로 인식된다
+  try {
+    const u = auth.currentUser;
+    if (u && u.updateProfile) await u.updateProfile({ displayName: name });
+  } catch (e) { console.warn('표시 이름 저장 실패', e); }
+  inp.value = '';
+  render();
+  applyStaffDefaultSelects();
+  toast(`${name} 님으로 설정했습니다`);
 }
 function getSelectedMentor() {
   const sel = document.getElementById('mentorSelect').value;
@@ -1233,7 +1312,9 @@ function renderPreview() {
     // 따즈아는 과목처럼 표에 넣되 할인 대상에서는 빠진다
     if (r.ddObj) {
       const num = String(r.items.length + 1).padStart(2,'0');
-      rowsHtml += `<tr class="q-row fixed last" data-fixed="1" draggable="false"><td class="drag"></td><td class="no">${num}</td><td class="sub">${esc(r.ddObj.label)}<span class="nodisc">할인 미적용</span><span class="x-btn" data-remove-ddajua="1">×</span></td><td class="desc">자격증 응시 및 강의 이용 지원 (별도 판매 항목)</td><td class="fee">${fmt(r.ddFee)}</td></tr>`;
+      const dd = splitAddonLabel(r.ddObj.label);
+      const ddDesc = dd.detail || '자격증 응시 및 강의 이용 지원';
+      rowsHtml += `<tr class="q-row fixed last" data-fixed="1" draggable="false"><td class="drag"></td><td class="no">${num}</td><td class="sub">${esc(dd.name)}<span class="x-btn" data-remove-ddajua="1">×</span></td><td class="desc">${esc(ddDesc)}</td><td class="fee">${fmt(r.ddFee)}</td></tr>`;
     }
   }
 
@@ -1268,7 +1349,7 @@ function renderPreview() {
     summaryHtml += `<div class="q-sum-row minus"><span class="lbl">멘토 직권</span><span class="val">− ${fmt(r.direct)}</span></div>`;
   }
   if (r.ddFee > 0 && (totalDiscountSum > 0 || r.direct > 0)) {
-    summaryHtml += `<div class="q-sum-detail">할인 적용 대상 ${fmt(r.courseSubtotal)}원 · ${esc(r.ddObj.label)}은(는) 할인에서 제외</div>`;
+    summaryHtml += `<div class="q-sum-detail">할인 적용 대상 ${fmt(r.courseSubtotal)}원</div>`;
   }
   if (r.addonTotal > 0) {
     summaryHtml += `<div class="q-sum-row plus"><span class="lbl">자격증 및 강의 신청</span><span class="val">+ ${fmt(r.addonTotal)}</span></div>`;
@@ -1323,6 +1404,7 @@ function renderPreview() {
     </div>
     <div class="q-section"><span>수강 과목</span></div>
     <table class="q-table">
+      <colgroup><col class="c-drag"><col class="c-no"><col class="c-sub"><col><col class="c-fee"></colgroup>
       <thead><tr><th class="hdrag"></th><th>번호</th><th>과목명</th><th>세부 내용</th><th class="right">수강료</th></tr></thead>
       <tbody id="qBody">${rowsHtml}</tbody>
     </table>
@@ -1423,6 +1505,8 @@ function render() {
   renderAddons();
   renderPromoPanel();
   renderMentorSelects();
+  renderNameBanner();
+  showCurrentUserBadge();
   renderPreview();
 }
 
@@ -2330,7 +2414,7 @@ function showCurrentUserBadge() {
   if (!btn) return;
   const me = resolveStaffName();
   if (CURRENT_USER && CURRENT_USER.email) {
-    btn.title = `${me || '이름 미등록'} · ${CURRENT_USER.email}`;
+    btn.title = `${me || '이름 미설정'} · ${CURRENT_USER.email}`;
     btn.textContent = me ? `${me} 로그아웃` : '로그아웃';
   }
 }
