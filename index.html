@@ -135,9 +135,9 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-table th.right { text-align: right; }
 .q-table th.hdrag { width: 22px; padding-left: 2px; }
 /* 폭을 고정해 두어야 과목명이 길어도 세부 내용 칸이 밀리지 않는다 */
-.q-table col.c-drag { width: 3%; }
-.q-table col.c-no { width: 4%; }
-.q-table col.c-sub { width: 14%; }
+.q-table col.c-drag { width: 2%; }
+.q-table col.c-no { width: 3.5%; }
+.q-table col.c-sub { width: 16.5%; }
 .q-table col.c-fee { width: 15%; }
 .q-table th, .q-table td { vertical-align: top; word-break: keep-all; overflow-wrap: anywhere; }
 .q-row { cursor: default; transition: background 0.1s; }
@@ -150,6 +150,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-row td.drag:hover { color: #0F0F0F; }
 .q-row td.no { color: #6B6862; width: 40px; font-variant-numeric: tabular-nums; font-size: 12px; padding-left: 2px; font-weight: 500; }
 .q-row td.sub { font-weight: 600; color: #0F0F0F; font-size: 13.5px; padding-right: 10px; line-height: 1.45; position: relative; }
+.q-row td.sub .nm { display: inline-block; white-space: nowrap; }
+.q-row td.sub .nm.wrapped { white-space: normal; }
 .q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; line-height: 1.45; }
 .q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 600; font-size: 13.5px; }
 .q-row td.fee.free { color: #9C6F00; font-size: 11px; letter-spacing: 0.2px; font-weight: 700; white-space: nowrap; }
@@ -407,8 +409,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-table th { padding: 6px 0 !important; font-size: 9px !important; }
   .quotation .q-row td { padding: 4px 0 !important; }
   .quotation .q-row td.no { font-size: 9px !important; }
-  .quotation .q-table col.c-no { width: 4%; }
-  .quotation .q-table col.c-sub { width: 14%; }
+  .quotation .q-table col.c-no { width: 3.5%; }
+  .quotation .q-table col.c-sub { width: 16.5%; }
   .quotation .q-table col.c-fee { width: 14%; }
   .quotation .q-row td.sub { font-size: 10.5px !important; }
   .quotation .q-row td.desc { font-size: 9px !important; }
@@ -1435,14 +1437,14 @@ function renderPreview() {
       const lastClass = (i === r.items.length-1 && !r.ddObj) ? 'last' : '';
       const clickable = state.discountMode === 'free' ? 'clickable' : '';
       const freeClass = isFree ? 'is-free' : '';
-      rowsHtml += `<tr class="q-row ${clickable} ${freeClass} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${esc(it.course.subject)}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${esc(it.course.desc)}</td>${feeCell}</tr>`;
+      rowsHtml += `<tr class="q-row ${clickable} ${freeClass} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub"><span class="nm">${esc(it.course.subject)}</span><span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${esc(it.course.desc)}</td>${feeCell}</tr>`;
     });
     // 따즈아는 과목처럼 표에 넣되 할인 대상에서는 빠진다
     if (r.ddObj) {
       const num = String(r.items.length + 1).padStart(2,'0');
       const dd = splitAddonLabel(r.ddObj.label);
       const ddDesc = dd.detail || '자격증 응시 및 강의 이용 지원';
-      rowsHtml += `<tr class="q-row fixed last" data-fixed="1" draggable="false"><td class="drag"></td><td class="no">${num}</td><td class="sub">${esc(dd.name)}<span class="x-btn" data-remove-ddajua="1">×</span></td><td class="desc">${esc(ddDesc)}</td><td class="fee">${fmt(r.ddFee)}</td></tr>`;
+      rowsHtml += `<tr class="q-row fixed last" data-fixed="1" draggable="false"><td class="drag"></td><td class="no">${num}</td><td class="sub"><span class="nm">${esc(dd.name)}</span><span class="x-btn" data-remove-ddajua="1">×</span></td><td class="desc">${esc(ddDesc)}</td><td class="fee">${fmt(r.ddFee)}</td></tr>`;
     }
   }
 
@@ -1578,6 +1580,7 @@ function renderPreview() {
     </div>
   `;
 
+  fitSubjectNames();
   updateDiscountNotes(r);
 
   // Wire up clicks + drag on quotation rows
@@ -1626,6 +1629,23 @@ function renderPreview() {
       dragSrc = null;
       render();
     };
+  });
+}
+
+// 과목명이 칸보다 길면 줄을 넘기는 대신 글자를 조금 줄인다
+function fitSubjectNames() {
+  document.querySelectorAll('#qBody td.sub .nm').forEach(el => {
+    el.style.fontSize = '';
+    el.classList.remove('wrapped');
+    const avail = el.parentElement.clientWidth - 12;
+    if (!avail || avail <= 0) return;
+    let size = 13.5;
+    while (el.scrollWidth > avail && size > 10) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+    // 그래도 넘치면 그때는 줄을 넘긴다
+    if (el.scrollWidth > avail) el.classList.add('wrapped');
   });
 }
 
