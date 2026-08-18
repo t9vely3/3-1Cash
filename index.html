@@ -14,10 +14,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;700&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0F0F; min-height: 100vh; -webkit-font-smoothing: antialiased; font-weight: 400; }
-.app { display: grid; grid-template-columns: 460px 1fr; min-height: 100vh; }
+.app { display: grid; grid-template-columns: 560px 1fr; min-height: 100vh; }
 
 .panel { background: #FFFFFF; border-right: 0.5px solid #E5E2D9; padding: 20px 20px 16px; overflow-y: auto; height: 100vh; display: flex; flex-direction: column; }
 .panel > .grow { flex: 1 1 auto; min-height: 110px; }
+.panel-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; flex: 1 1 auto; min-height: 0; }
+.col-pick { display: flex; flex-direction: column; min-height: 0; }
+.col-pick .grow { flex: 1 1 auto; min-height: 110px; }
+.col-opts { overflow-y: auto; min-height: 0; padding-right: 4px; }
+.col-opts::-webkit-scrollbar { width: 6px; }
+.col-opts::-webkit-scrollbar-thumb { background: #D8D3C8; }
+/* 학과는 한 줄에 가로로 늘어놓고 옆으로 넘긴다 */
+.dept-strip { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 5px; margin-bottom: 7px; }
+.dept-strip::-webkit-scrollbar { height: 5px; }
+.dept-strip::-webkit-scrollbar-thumb { background: #D8D3C8; }
+.dept-tab { flex: 0 0 auto; white-space: nowrap; padding: 6px 11px; border: 0.5px solid #D8D3C8; background: #FFFFFF; font-size: 12px; cursor: pointer; color: #4A4843; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+.dept-tab:hover { border-color: #1A1A1A; color: #1A1A1A; }
+.dept-tab.active { background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A; }
 .panel::-webkit-scrollbar { width: 6px; }
 .panel::-webkit-scrollbar-thumb { background: #D8D3C8; }
 .panel h1 { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; color: #1A1A1A; }
@@ -97,6 +110,22 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-info { display: grid; grid-template-columns: 1.2fr 2fr 0.8fr; gap: 32px; padding: 22px 24px; margin-bottom: 36px; background: #FBF9F0; border-left: 3px solid #B8860B; }
 /* 국민취업지원제도 견적서는 하단 안내 박스와 같은 파란 계열로 맞춘다 */
 .q-info.ktp { background: #F0F5FF; border-left-color: #1B3F7A; }
+/* 국민취업지원제도 견적서는 금색 강조를 전부 파란 계열로 바꾼다 */
+.quotation.ktp .q-header::after { background: #1B3F7A; }
+.quotation.ktp .q-title .sub { color: #1B3F7A; }
+.quotation.ktp .q-ktp-mark { display: block; margin-top: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #1B3F7A; }
+.quotation.ktp .q-row.clickable:hover td { background: #E3ECFA; }
+.quotation.ktp .q-row.is-free td { background: #F0F5FF; }
+.quotation.ktp .q-row.is-free td:first-child { box-shadow: inset 3px 0 0 #1B3F7A; }
+.quotation.ktp .q-row.is-free td.sub { color: #1B3F7A; }
+.quotation.ktp .q-row.is-free .x-btn { background: #F0F5FF; }
+.quotation.ktp .q-row.clickable.is-free:hover td,
+.quotation.ktp .q-row.clickable.is-free:hover .x-btn { background: #E3ECFA; }
+.quotation.ktp .q-row td.fee.free { color: #1B3F7A; }
+.quotation.ktp .q-promotions-box { background: #F0F5FF; border-left-color: #1B3F7A; }
+.quotation.ktp .q-promotions-title { color: #1B3F7A; }
+.quotation.ktp .q-promo-item { border-bottom-color: #A9BEE0; }
+.quotation.ktp .q-promo-deadline { color: #1B3F7A; }
 .q-info-item .label { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; }
 .q-info-item .value { font-size: 16px; margin-top: 6px; letter-spacing: -0.2px; color: #0F0F0F; font-weight: 600; }
 
@@ -332,6 +361,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .preview-wrap { padding: 24px 14px; max-height: none; }
   .quotation { padding: 32px 22px !important; }
   .q-info { grid-template-columns: 1fr; gap: 14px; }
+  .panel-cols { grid-template-columns: 1fr; }
+  .col-opts { overflow: visible; }
   .master-grid { grid-template-columns: 1fr; min-height: 0; }
   .col-deps, .col-procs, .col-courses { max-height: 260px; }
   .modal { max-height: 94vh; }
@@ -358,8 +389,10 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   }
   .q-table thead { display: table-header-group; }
   .q-row.is-free td { background: #FBF9F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .quotation.ktp .q-row.is-free td { background: #F0F5FF !important; }
   .q-row.is-free td:first-child { box-shadow: none !important; }
   .q-row.is-free td.no { box-shadow: inset 3px 0 0 #B8860B !important; }
+  .quotation.ktp .q-row.is-free td.no { box-shadow: inset 3px 0 0 #1B3F7A !important; }
   .q-row .x-btn { display: none !important; }
   .q-row td.drag, .q-table th.hdrag { font-size: 0 !important; padding: 0 !important; overflow: hidden; }
   .q-table col.c-drag { width: 0; }
@@ -456,52 +489,59 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
       <button class="doc-tab" data-doc="ktp">국민취업지원제도</button>
     </div>
 
-    <div class="row3">
-      <div class="field"><label>학생명</label><input type="text" id="student" placeholder="홍길동"></div>
-      <div class="field"><label>연락처</label><input type="text" id="contact" placeholder="010-0000-0000"></div>
-      <div class="field"><label>발급일</label><input type="date" id="issued"></div>
-    </div>
-    <div class="row3">
-      <div class="field"><label>담당 멘토</label><select id="mentorSelect"></select><input type="text" id="mentorCustom" placeholder="이름 입력" style="display:none; margin-top:6px;"></div>
-      <div class="field"><label>상담자</label><select id="counselorSelect"></select><input type="text" id="counselorCustom" placeholder="이름 입력" style="display:none; margin-top:6px;"></div>
-      <div class="field"><label>프로그램명</label><input type="text" id="program" placeholder="자동 입력"></div>
-    </div>
-
-    <div class="section-title">과목 선택</div>
-    <div class="field" style="margin-bottom:6px;"><select id="deptSelect"></select></div>
-    <div class="proc-tabs" id="procTabs"></div>
-    <div class="course-list grow" id="courseList"></div>
-    <button class="bulk-add" id="bulkAddBtn">＋ 이 과정 전체 추가</button>
-
-    <div class="section-title">할인 · 할부</div>
-    <div class="mode-tabs">
-      <button class="mode-tab active" data-mode="free">N+N 무료과목</button>
-      <button class="mode-tab" data-mode="percent">% 할인</button>
-    </div>
-    <div class="row3 two" id="discountRow">
-      <div class="field" id="percentField" style="display:none;">
-        <label>할인율 %</label>
-        <input type="number" id="percentInput" min="0" max="100" value="0" placeholder="20">
+    <div class="panel-cols">
+      <div class="col-pick">
+        <div class="section-title" style="margin-top:0; padding-top:0; border-top:none;">과목 선택</div>
+        <div class="dept-strip" id="deptTabs"></div>
+        <div class="proc-tabs" id="procTabs"></div>
+        <div class="course-list grow" id="courseList"></div>
+        <button class="bulk-add" id="bulkAddBtn">＋ 이 과정 전체 추가</button>
       </div>
-      <div class="field">
-        <label>직권 할인</label>
-        <input type="number" id="directInput" min="0" value="0" placeholder="500000">
-      </div>
-      <div class="field">
-        <label>할부 개월</label>
-        <input type="number" id="monthsInput" min="0" max="60" value="0" placeholder="12">
-      </div>
-    </div>
-    <div class="cap-note" id="directNote" style="display:none;"></div>
-    <div class="cap-note" id="monthsNote" style="display:none;"></div>
 
-    <div class="section-title">별도 판매 · 프로모션</div>
-    <div class="row2">
-      <div class="field"><label>따즈아</label><select id="ddajuaSelect"><option value="">선택 안함</option></select></div>
-      <div class="field"><label>ACP 자격증</label><select id="acpSelect"><option value="">선택 안함</option></select></div>
+      <div class="col-opts">
+        <div class="section-title" style="margin-top:0; padding-top:0; border-top:none;">기본 정보</div>
+        <div class="row2">
+          <div class="field"><label>학생명</label><input type="text" id="student" placeholder="홍길동"></div>
+          <div class="field"><label>연락처</label><input type="text" id="contact" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>담당 멘토</label><select id="mentorSelect"></select><input type="text" id="mentorCustom" placeholder="이름 입력" style="display:none; margin-top:6px;"></div>
+          <div class="field"><label>상담자</label><select id="counselorSelect"></select><input type="text" id="counselorCustom" placeholder="이름 입력" style="display:none; margin-top:6px;"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>발급일</label><input type="date" id="issued"></div>
+          <div class="field"><label>프로그램명</label><input type="text" id="program" placeholder="자동 입력"></div>
+        </div>
+
+        <div class="section-title">할인 · 할부</div>
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="free">N+N 무료</button>
+          <button class="mode-tab" data-mode="percent">% 할인</button>
+        </div>
+        <div class="row3 two" id="discountRow">
+          <div class="field" id="percentField" style="display:none;">
+            <label>할인율 %</label>
+            <input type="number" id="percentInput" min="0" max="100" value="0" placeholder="20">
+          </div>
+          <div class="field">
+            <label>직권 할인</label>
+            <input type="number" id="directInput" min="0" value="0" placeholder="500000">
+          </div>
+          <div class="field">
+            <label>할부 개월</label>
+            <input type="number" id="monthsInput" min="0" max="60" value="0" placeholder="12">
+          </div>
+        </div>
+        <div class="cap-note" id="directNote" style="display:none;"></div>
+        <div class="cap-note" id="monthsNote" style="display:none;"></div>
+
+        <div class="section-title">별도 판매 · 프로모션</div>
+        <div class="field"><label>따즈아</label><select id="ddajuaSelect"><option value="">선택 안함</option></select></div>
+        <div class="field"><label>ACP 자격증</label><select id="acpSelect"><option value="">선택 안함</option></select></div>
+        <div id="promoListPanel"></div>
+        <button class="bulk-add" onclick="addPromotion()">＋ 프로모션 추가</button>
+      </div>
     </div>
-    <div id="promoListPanel"></div>
-    <button class="bulk-add" onclick="addPromotion()">＋ 프로모션 추가</button>
 
     <div class="actions">
       <button class="btn btn-secondary" style="flex:0 0 78px;" onclick="resetAll()">초기화</button>
@@ -1135,24 +1175,27 @@ function getSelectedProcessSummary() {
 }
 
 // ============ LEFT PANEL RENDER ============
-// 학과가 많아 탭으로 두면 화면을 크게 차지하므로 드롭다운으로 둔다
+// 학과는 한 줄짜리 가로 스크롤 띠에 버튼으로 늘어놓는다
 function renderDeptTabs() {
-  const el = document.getElementById('deptSelect');
+  const el = document.getElementById('deptTabs');
   el.innerHTML = '';
+  let activeBtn = null;
   MASTER.departments.forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d.id;
-    opt.textContent = d.name;
-    el.appendChild(opt);
+    const b = document.createElement('button');
+    b.className = 'dept-tab' + (d.id === state.selectedDept ? ' active' : '');
+    b.textContent = d.name;
+    if (d.id === state.selectedDept) activeBtn = b;
+    b.onclick = () => {
+      state.selectedDept = d.id;
+      state.selectedProc = d.processes[0]?.id || null;
+      render();
+    };
+    el.appendChild(b);
   });
-  if (state.selectedDept) el.value = state.selectedDept;
-  el.onchange = () => {
-    const d = MASTER.departments.find(x => x.id === el.value);
-    if (!d) return;
-    state.selectedDept = d.id;
-    state.selectedProc = d.processes[0]?.id || null;
-    render();
-  };
+  // 선택한 학과가 화면 밖에 있으면 보이는 위치로 끌어온다
+  if (activeBtn && activeBtn.scrollIntoView) {
+    try { activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) {}
+  }
 }
 function renderProcTabs() {
   const el = document.getElementById('procTabs');
@@ -1474,10 +1517,12 @@ function renderPreview() {
     `<li><span class="n">${i+1}.</span>${esc(p.text)}</li>`
   ).join('');
 
-  document.getElementById('quotation').innerHTML = `
+  const quotEl = document.getElementById('quotation');
+  quotEl.className = 'quotation' + (r.isKtp ? ' ktp' : '');
+  quotEl.innerHTML = `
     <div class="q-header">
       <div class="q-title-wrap">
-        <div class="q-title">${r.isKtp ? '국민취업지원제도 견적서' : '수강 견적서'}<span class="sub">Quotation</span></div>
+        <div class="q-title">수강 견적서<span class="sub">Quotation</span>${r.isKtp ? '<span class="q-ktp-mark">국민취업지원제도 적용시</span>' : ''}</div>
         <div class="q-brand">SBS ACADEMY AIX — HONGDAE</div>
       </div>
       <div class="q-meta">
