@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBS Academy 견적서 시스템</title>
+<title>SBS ACADEMY AIX 견적서 시스템</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -96,6 +96,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-meta .mk { color: #8C8A82; display: inline-block; width: 56px; padding-right: 8px; font-weight: 600; font-size: 9px; letter-spacing: 1px; }
 
 .q-info { display: grid; grid-template-columns: 1.2fr 2fr 0.8fr; gap: 32px; padding: 22px 24px; margin-bottom: 36px; background: #FBF9F0; border-left: 3px solid #B8860B; }
+/* 국민취업지원제도 견적서는 하단 안내 박스와 같은 파란 계열로 맞춘다 */
+.q-info.ktp { background: #F0F5FF; border-left-color: #1B3F7A; }
 .q-info-item .label { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; }
 .q-info-item .value { font-size: 16px; margin-top: 6px; letter-spacing: -0.2px; color: #0F0F0F; font-weight: 600; }
 
@@ -408,6 +410,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-sum-support .val { font-size: 10.5px !important; }
   .quotation .q-sum-total { margin-top: 5px !important; padding-top: 5px !important; }
   .quotation .q-sum-total .lbl, .quotation .q-sum-total .val { font-size: 10.5px !important; }
+  .quotation .q-info.ktp { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .quotation .q-support-box { margin-top: 12px !important; padding: 8px 12px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .quotation .q-support-title { font-size: 8.5px !important; margin-bottom: 5px !important; }
   .quotation .q-support-line { padding: 2px 0 !important; font-size: 9px !important; }
@@ -426,7 +429,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 
 <div class="lock-screen" id="lockScreen">
   <div class="lock-box">
-    <div class="lock-title">SBS Academy</div>
+    <div class="lock-title">SBS ACADEMY AIX</div>
     <div class="lock-sub">Quotation System</div>
     <input type="email" id="lockEmail" class="lock-input plain" placeholder="직원 이메일" autocomplete="username" autofocus>
     <input type="password" id="lockInput" class="lock-input plain" placeholder="비밀번호" autocomplete="current-password">
@@ -448,7 +451,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
       <button onclick="cancelEditing()">새 견적으로 전환</button>
     </div>
     <h1>견적서 작성</h1>
-    <div class="sub">SBS ACADEMY · HONGDAE <span style="color:#0F8A5F; margin-left:6px; font-weight:700;">● FIRESTORE</span></div>
+    <div class="sub">SBS ACADEMY AIX · HONGDAE <span style="color:#0F8A5F; margin-left:6px; font-weight:700;">● FIRESTORE</span></div>
 
     <div class="doc-tabs">
       <button class="doc-tab active" data-doc="normal">일반 견적서</button>
@@ -1479,7 +1482,7 @@ function renderPreview() {
     <div class="q-header">
       <div class="q-title-wrap">
         <div class="q-title">${r.isKtp ? '국민취업지원제도 견적서' : '수강 견적서'}<span class="sub">Quotation</span></div>
-        <div class="q-brand">SBS ACADEMY COMPUTER ART — HONGDAE</div>
+        <div class="q-brand">SBS ACADEMY AIX — HONGDAE</div>
       </div>
       <div class="q-meta">
         <div><span class="mk">NO.</span>${docNo}</div>
@@ -1488,7 +1491,7 @@ function renderPreview() {
         ${meta.counselor && meta.counselor !== meta.mentor ? `<div><span class="mk">상담자</span>${esc(meta.counselor)}</div>` : ''}
       </div>
     </div>
-    <div class="q-info">
+    <div class="q-info${r.isKtp ? ' ktp' : ''}">
       <div class="q-info-item"><div class="label">수강생</div><div class="value">${esc(meta.student) || '—'}</div></div>
       <div class="q-info-item"><div class="label">프로그램</div><div class="value">${esc(programDisplay)}</div></div>
       <div class="q-info-item"><div class="label">과목 수</div><div class="value">${totalRows}</div></div>
