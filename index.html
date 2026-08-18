@@ -93,7 +93,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-title .sub { display: block; font-size: 11px; font-weight: 600; letter-spacing: 3px; color: #B8860B; margin-top: 2px; text-transform: uppercase; }
 .q-brand { font-size: 10px; letter-spacing: 1.5px; color: #4A4843; margin-top: 12px; font-weight: 500; }
 .q-meta { text-align: right; font-size: 11px; color: #1F1F1F; line-height: 2.1; letter-spacing: 0.2px; font-weight: 500; }
-.q-meta .mk { color: #8C8A82; display: inline-block; width: 56px; font-weight: 600; font-size: 9px; letter-spacing: 1px; }
+.q-meta .mk { color: #8C8A82; display: inline-block; width: 56px; padding-right: 8px; font-weight: 600; font-size: 9px; letter-spacing: 1px; }
 
 .q-info { display: grid; grid-template-columns: 1.2fr 2fr 0.8fr; gap: 32px; padding: 22px 24px; margin-bottom: 36px; background: #FBF9F0; border-left: 3px solid #B8860B; }
 .q-info-item .label { font-size: 10px; letter-spacing: 1px; color: #6B6862; font-weight: 700; }
@@ -308,7 +308,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .lock-link { background: none; border: none; color: #6B6862; font-size: 11px; font-family: inherit; text-decoration: underline; cursor: pointer; padding: 0; margin-top: 10px; }
 .lock-link:hover { color: #0F0F0F; }
 
-@media (max-width: 1080px) {
+@media screen and (max-width: 1080px) {
   .app { display: block; }
   .panel { max-height: none; border-right: none; border-bottom: 0.5px solid #E5E2D9; padding: 26px 20px; }
   .preview-wrap { padding: 24px 14px; max-height: none; }
@@ -342,7 +342,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .q-row.is-free td { background: #FBF9F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .q-row.is-free td:first-child { box-shadow: none !important; }
   .q-row.is-free td.no { box-shadow: inset 3px 0 0 #B8860B !important; }
-  .q-row .x-btn, .q-row td.drag, .q-table th.hdrag { display: none !important; }
+  .q-row .x-btn { display: none !important; }
+  .q-row td.drag, .q-table th.hdrag { font-size: 0 !important; padding: 0 !important; overflow: hidden; }
   .q-table col.c-drag { width: 0; }
   /* 인쇄 시 밀도 자동 압축 - 한 장에 맞도록 */
   .quotation .q-header { margin-bottom: 14px !important; padding-bottom: 10px !important; }
