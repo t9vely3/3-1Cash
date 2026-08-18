@@ -125,6 +125,12 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; line-height: 1.45; }
 .q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 600; font-size: 13.5px; }
 .q-row td.fee.free { color: #9C6F00; font-size: 12px; letter-spacing: 0.3px; font-weight: 700; }
+.q-row.is-free td { background: #FBF9F0; }
+.q-row.is-free td:first-child { box-shadow: inset 3px 0 0 #B8860B; }
+.q-row.is-free td.sub { color: #6B5A2E; }
+.q-row.is-free .x-btn { background: #FBF9F0; }
+.q-row.clickable.is-free:hover td { background: #F5EFD9; }
+.q-row.clickable.is-free:hover .x-btn { background: #F5EFD9; }
 .q-row.last td { border-bottom: 1.5px solid #0F0F0F; }
 .q-row.fixed td.sub { color: #1F1F1F; }
 .q-row.fixed td.no { color: #8C8A82; }
@@ -332,6 +338,9 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
     margin: 0 !important;
   }
   .q-table thead { display: table-header-group; }
+  .q-row.is-free td { background: #FBF9F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .q-row.is-free td:first-child { box-shadow: none !important; }
+  .q-row.is-free td.no { box-shadow: inset 3px 0 0 #B8860B !important; }
   .q-row .x-btn, .q-row td.drag, .q-table th.hdrag { display: none !important; }
   .q-table col.c-drag { width: 0; }
   /* 인쇄 시 밀도 자동 압축 - 한 장에 맞도록 */
@@ -1307,7 +1316,8 @@ function renderPreview() {
       const feeCell = isFree ? `<td class="fee free">무료지원</td>` : `<td class="fee">${fmt(it.course.fee)}</td>`;
       const lastClass = (i === r.items.length-1 && !r.ddObj) ? 'last' : '';
       const clickable = state.discountMode === 'free' ? 'clickable' : '';
-      rowsHtml += `<tr class="q-row ${clickable} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${esc(it.course.subject)}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${esc(it.course.desc)}</td>${feeCell}</tr>`;
+      const freeClass = isFree ? 'is-free' : '';
+      rowsHtml += `<tr class="q-row ${clickable} ${freeClass} ${lastClass}" data-sid="${it.selId}" data-idx="${i}" draggable="true"><td class="drag">⋮⋮</td><td class="no">${num}</td><td class="sub">${esc(it.course.subject)}<span class="x-btn" data-remove="${it.selId}">×</span></td><td class="desc">${esc(it.course.desc)}</td>${feeCell}</tr>`;
     });
     // 따즈아는 과목처럼 표에 넣되 할인 대상에서는 빠진다
     if (r.ddObj) {
