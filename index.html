@@ -174,6 +174,22 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-sum-final .lbl { font-size: 15px; color: #0F0F0F; font-weight: 800; letter-spacing: 0.3px; }
 .q-sum-final .val { font-size: 32px; color: #0F0F0F; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; line-height: 1; }
 .q-sum-final .val .won { font-size: 15px; color: #6B6862; font-weight: 600; margin-left: 4px; }
+/* 국민취업지원제도 */
+.doc-tabs { display: flex; gap: 6px; margin: 14px 0 4px; }
+.doc-tab { flex: 1; padding: 10px 6px; border: 0.5px solid #D8D3C8; background: #FFFFFF; font-size: 12px; cursor: pointer; color: #4A4843; font-family: inherit; font-weight: 600; transition: all 0.15s; }
+.doc-tab:hover { border-color: #1A1A1A; color: #1A1A1A; }
+.doc-tab.active { background: #1B3F7A; color: #FFFFFF; border-color: #1B3F7A; }
+.q-sum-support { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; }
+.q-sum-support .lbl { font-size: 12.5px; color: #1B3F7A; font-weight: 600; }
+.q-sum-support .val { font-size: 14px; color: #1B3F7A; font-weight: 700; font-variant-numeric: tabular-nums; }
+.q-sum-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid #6B6862; }
+.q-sum-total .lbl { font-size: 13px; color: #0F0F0F; font-weight: 700; }
+.q-sum-total .val { font-size: 15px; color: #0F0F0F; font-weight: 700; font-variant-numeric: tabular-nums; }
+.q-support-box { margin-top: 32px; padding: 20px 24px; background: #F0F5FF; border-left: 3px solid #1B3F7A; }
+.q-support-title { font-size: 11px; letter-spacing: 0.5px; color: #1B3F7A; font-weight: 700; margin-bottom: 12px; }
+.q-support-line { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; font-size: 12px; color: #1F1F1F; }
+.q-support-line .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+.q-support-desc { font-size: 11px; color: #4A4843; line-height: 1.7; margin-top: 10px; padding-top: 10px; border-top: 0.5px dashed #A9BEE0; }
 .q-sum-install { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid #D8D3C8; }
 .q-sum-install .lbl { font-size: 12px; color: #4A4843; font-weight: 500; }
 .q-sum-install .val { font-size: 17px; color: #0F0F0F; font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -283,6 +299,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .mentor-tab .cnt { font-size: 10px; opacity: 0.65; margin-left: 4px; font-variant-numeric: tabular-nums; }
 .editing-banner { background: #FFF8E1; border-bottom: 1px solid #B8860B; padding: 10px 26px; font-size: 12px; color: #9C6F00; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .editing-banner button { background: transparent; border: 0.5px solid #9C6F00; color: #9C6F00; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
+.ktp-tag { display: inline-block; margin-left: 5px; padding: 1px 4px; border: 0.5px solid #A9BEE0; border-radius: 3px; font-size: 9px; font-weight: 600; color: #1B3F7A; background: #F0F5FF; vertical-align: middle; }
 .name-banner { background: #F0F5FF; border-bottom: 1px solid #2A5DB0; padding: 12px 26px; font-size: 12px; color: #1B3F7A; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .name-banner .msg { font-weight: 600; flex: 1 1 100%; line-height: 1.5; }
 .name-banner input { flex: 1 1 140px; padding: 6px 9px; font-size: 12px; border: 0.5px solid #A9BEE0; background: #FFFFFF; outline: none; font-family: inherit; color: #0F0F0F; }
@@ -386,6 +403,15 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-sum-install .lbl { font-size: 9px !important; }
   .quotation .q-sum-install .val { font-size: 12px !important; }
   .quotation .q-sum-install .val .won { font-size: 9px !important; }
+  .quotation .q-sum-support { padding: 3px 0 !important; }
+  .quotation .q-sum-support .lbl { font-size: 9.5px !important; }
+  .quotation .q-sum-support .val { font-size: 10.5px !important; }
+  .quotation .q-sum-total { margin-top: 5px !important; padding-top: 5px !important; }
+  .quotation .q-sum-total .lbl, .quotation .q-sum-total .val { font-size: 10.5px !important; }
+  .quotation .q-support-box { margin-top: 12px !important; padding: 8px 12px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .quotation .q-support-title { font-size: 8.5px !important; margin-bottom: 5px !important; }
+  .quotation .q-support-line { padding: 2px 0 !important; font-size: 9px !important; }
+  .quotation .q-support-desc { font-size: 8.5px !important; margin-top: 5px !important; padding-top: 5px !important; line-height: 1.5 !important; }
   .quotation .q-policies { margin-top: 14px !important; padding-top: 10px !important; }
   .quotation .q-policy-block { margin-bottom: 10px !important; }
   .quotation .q-policy-title { font-size: 9px !important; margin-bottom: 6px !important; padding-bottom: 4px !important; }
@@ -423,6 +449,11 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
     </div>
     <h1>견적서 작성</h1>
     <div class="sub">SBS ACADEMY · HONGDAE <span style="color:#0F8A5F; margin-left:6px; font-weight:700;">● FIRESTORE</span></div>
+
+    <div class="doc-tabs">
+      <button class="doc-tab active" data-doc="normal">일반 견적서</button>
+      <button class="doc-tab" data-doc="ktp">국민취업지원제도</button>
+    </div>
 
     <div class="field">
       <label>학생명</label>
@@ -762,6 +793,7 @@ let state = {
   discountMode: 'free',
   percent: 0,
   direct: 0,
+  docType: 'normal',
   months: 0,
   ddajua: '',
   acp: '',
@@ -1083,6 +1115,9 @@ function renderMentorSelects() {
   });
 }
 // 초기화·수정 종료 후 다시 로그인한 직원으로 돌려놓는다
+function applyDocTabs() {
+  document.querySelectorAll('.doc-tab').forEach(x => x.classList.toggle('active', x.dataset.doc === state.docType));
+}
 function applyStaffDefaultSelects() {
   const me = resolveStaffName();
   if (!me) return;
@@ -1252,6 +1287,11 @@ function renderPromoPanel() {
 }
 
 // ============ CALC + PREVIEW ============
+// 국민취업지원제도: 월 60만원씩 6개월, 최대 360만원 지원
+const KTP_MONTHS = 6;
+const KTP_MONTHLY = 600000;
+const KTP_MAX = KTP_MONTHS * KTP_MONTHLY;
+
 function calc() {
   const items = state.selected;
   const ddObj = (MASTER.addons.ddajua||[]).find(o => o.label === state.ddajua);
@@ -1280,16 +1320,23 @@ function calc() {
   const addonTotal = acpObj ? (Number(acpObj.fee) || 0) : 0;
   const finalTotal = courseTotal + ddFee + addonTotal;
 
+  // 국민취업지원제도는 따즈아·자격증을 포함한 전체 금액에서 차감한다
+  const isKtp = state.docType === 'ktp';
+  const support = isKtp ? Math.min(KTP_MAX, finalTotal) : 0;
+  const supportCapped = isKtp && finalTotal < KTP_MAX;
+  const payable = finalTotal - support;
+
   // 할부: 나누어떨어지지 않는 금액은 첫 달에 몰아 총액이 어긋나지 않게 한다
   const months = Math.min(60, Math.max(0, Math.floor(Number(state.months) || 0)));
   let monthly = 0, firstMonth = 0;
-  if (months >= 2 && finalTotal > 0) {
-    monthly = Math.floor(finalTotal / months);
-    firstMonth = monthly + (finalTotal - monthly * months);
+  if (months >= 2 && payable > 0) {
+    monthly = Math.floor(payable / months);
+    firstMonth = monthly + (payable - monthly * months);
   }
 
   return { items, courseSubtotal, subtotal, ddFee, freeAmount, percentAmount, direct, directRequested,
-           directCapped, courseTotal, addonTotal, finalTotal, months, monthly, firstMonth, ddObj, acpObj };
+           directCapped, courseTotal, addonTotal, finalTotal, isKtp, support, supportCapped, payable,
+           months, monthly, firstMonth, ddObj, acpObj };
 }
 
 function renderPreview() {
@@ -1355,6 +1402,24 @@ function renderPreview() {
     `;
   }
 
+  // 국민취업지원제도 안내
+  if (r.isKtp) {
+    leftColHtml += `
+      <div class="q-support-box">
+        <div class="q-support-title">국민취업지원제도 안내</div>
+        <div class="q-support-line"><span>월 지원금</span><span class="v">${fmt(KTP_MONTHLY)}원</span></div>
+        <div class="q-support-line"><span>지원 기간</span><span class="v">${KTP_MONTHS}개월</span></div>
+        <div class="q-support-line"><span>총 지원 한도</span><span class="v">${fmt(KTP_MAX)}원</span></div>
+        <div class="q-support-line"><span>본 견적 적용 금액</span><span class="v">${fmt(r.support)}원</span></div>
+        <div class="q-support-desc">
+          국민취업지원제도 훈련참여지원수당으로 월 ${fmt(KTP_MONTHLY)}원씩 ${KTP_MONTHS}개월간
+          최대 ${fmt(KTP_MAX)}원이 지원됩니다. 위 금액은 총 수강료에서 지원금을 뺀 자비 부담액입니다.
+          지원 대상 여부와 실제 지급액은 고용센터 심사 결과에 따라 달라질 수 있습니다.
+        </div>
+      </div>
+    `;
+  }
+
   // 우측: 합계 + 최종 납부액 통합 박스
   const totalDiscountSum = r.freeAmount + r.percentAmount;
   let summaryHtml = `<div class="q-summary-box">`;
@@ -1377,9 +1442,18 @@ function renderPreview() {
       summaryHtml += `<div class="q-sum-detail">${addonDetail.map(esc).join(' · ')}</div>`;
     }
   }
-  summaryHtml += `<div class="q-sum-final"><span class="lbl">최종 납부액</span><span class="val">${fmt(r.finalTotal)}<span class="won">원</span></span></div>`;
+  if (r.isKtp) {
+    summaryHtml += `<div class="q-sum-total"><span class="lbl">총 수강료</span><span class="val">${fmt(r.finalTotal)}</span></div>`;
+    summaryHtml += `<div class="q-sum-support"><span class="lbl">국민취업지원제도 지원</span><span class="val">− ${fmt(r.support)}</span></div>`;
+    if (r.supportCapped) {
+      summaryHtml += `<div class="q-sum-detail">지원 한도 ${fmt(KTP_MAX)}원 중 수강료만큼만 적용</div>`;
+    }
+    summaryHtml += `<div class="q-sum-final"><span class="lbl">자비 부담액</span><span class="val">${fmt(r.payable)}<span class="won">원</span></span></div>`;
+  } else {
+    summaryHtml += `<div class="q-sum-final"><span class="lbl">최종 납부액</span><span class="val">${fmt(r.finalTotal)}<span class="won">원</span></span></div>`;
+  }
   if (r.months >= 2 && r.monthly > 0) {
-    summaryHtml += `<div class="q-sum-install"><span class="lbl">${r.months}개월 분납 시 월 납부액</span><span class="val">${fmt(r.monthly)}<span class="won">원</span></span></div>`;
+    summaryHtml += `<div class="q-sum-install"><span class="lbl">${r.months}개월 분납 시 월 ${r.isKtp ? '자비 부담액' : '납부액'}</span><span class="val">${fmt(r.monthly)}<span class="won">원</span></span></div>`;
     if (r.firstMonth !== r.monthly) {
       summaryHtml += `<div class="q-sum-detail">첫 달 ${fmt(r.firstMonth)}원, 이후 ${r.months - 1}개월 ${fmt(r.monthly)}원</div>`;
     }
@@ -1404,7 +1478,7 @@ function renderPreview() {
   document.getElementById('quotation').innerHTML = `
     <div class="q-header">
       <div class="q-title-wrap">
-        <div class="q-title">수강 견적서<span class="sub">Quotation</span></div>
+        <div class="q-title">${r.isKtp ? '국민취업지원제도 견적서' : '수강 견적서'}<span class="sub">Quotation</span></div>
         <div class="q-brand">SBS ACADEMY COMPUTER ART — HONGDAE</div>
       </div>
       <div class="q-meta">
@@ -1549,6 +1623,13 @@ document.getElementById('directInput').onchange = e => {
   const v = Math.max(0, Number(e.target.value) || 0);
   e.target.value = v; state.direct = v; renderPreview();
 };
+document.querySelectorAll('.doc-tab').forEach(b => {
+  b.onclick = () => {
+    state.docType = b.dataset.doc;
+    document.querySelectorAll('.doc-tab').forEach(x => x.classList.toggle('active', x === b));
+    renderPreview();
+  };
+});
 document.getElementById('monthsInput').oninput = e => { state.months = e.target.value; renderPreview(); };
 document.getElementById('monthsInput').onchange = e => {
   const v = Math.min(60, Math.max(0, Math.floor(Number(e.target.value) || 0)));
@@ -2056,6 +2137,9 @@ function buildQuoteSnapshot(asNew) {
     totalDiscount: r.freeAmount + r.percentAmount + r.direct,
     addonTotal: r.addonTotal + r.ddFee,
     finalTotal: r.finalTotal,
+    docType: state.docType,
+    support: r.support,
+    payable: r.payable,
     months: r.months,
     monthlyPayment: r.monthly,
     // 풀 복원용 데이터
@@ -2067,6 +2151,7 @@ function buildQuoteSnapshot(asNew) {
         procId: s.procId,
       })),
       discountMode: state.discountMode,
+      docType: state.docType,
       percent: state.percent,
       direct: state.direct,
       months: state.months,
@@ -2105,6 +2190,7 @@ function showSaveDialog(isEditing) {
     <div><b>학생</b> &nbsp; ${esc(student)}${contact ? ' &nbsp;·&nbsp; ' + esc(contact) : ''}</div>
     <div><b>담당 멘토</b> &nbsp; ${esc(mentor) || '—'}${counselor && counselor !== mentor ? ' &nbsp;(상담: ' + esc(counselor) + ')' : ''}</div>
     <div><b>과목 수</b> &nbsp; ${r.items.length + (r.ddObj ? 1 : 0)}과목 &nbsp;·&nbsp; <b>최종 금액</b> &nbsp; ${fmt(r.finalTotal)}원</div>
+    ${r.isKtp ? `<div><b>국민취업지원제도</b> &nbsp; 지원 ${fmt(r.support)}원 &nbsp;·&nbsp; <b>자비 부담</b> &nbsp; ${fmt(r.payable)}원</div>` : ''}
     ${r.months >= 2 && r.monthly > 0 ? `<div><b>${r.months}개월 분납</b> &nbsp; 월 ${fmt(r.monthly)}원</div>` : ''}
   `;
 
@@ -2225,14 +2311,15 @@ function renderHistory() {
     let mentorStr = h.mentor || '—';
     if (h.counselor && h.counselor !== h.mentor) mentorStr += ` (${h.counselor})`;
     // 금액: 시트에서 문자열로 올 수 있으므로 Number 변환
-    const amount = Number(h.finalTotal) || 0;
+    const isKtp = h.docType === 'ktp';
+    const amount = isKtp ? (Number(h.payable) || 0) : (Number(h.finalTotal) || 0);
     const pdfHref = safeUrl(h.pdfUrl);
     row.innerHTML = `
       <div class="col-date">${esc(shortDate)}</div>
       <div class="col-student">${esc(h.student) || '—'}</div>
       <div class="col-contact">${esc(h.contact) || '—'}</div>
       <div class="col-mentor">${esc(mentorStr)}</div>
-      <div class="col-amount">${fmt(amount)}</div>
+      <div class="col-amount">${fmt(amount)}${isKtp ? '<span class="ktp-tag">국취</span>' : ''}</div>
       <div class="col-actions">
         ${pdfHref ? `<a href="${esc(pdfHref)}" target="_blank" rel="noopener noreferrer" class="hist-btn" title="PDF 열기" onclick="event.stopPropagation()">📄</a>` : ''}
         <button class="hist-btn del" data-del="${esc(h.id)}" title="삭제">×</button>
@@ -2274,6 +2361,7 @@ function restoreQuote(h) {
   state.percent = snap.percent || 0;
   state.direct = snap.direct || 0;
   state.months = snap.months || 0;
+  state.docType = snap.docType === 'ktp' ? 'ktp' : 'normal';
   state.ddajua = snap.ddajua || '';
   state.acp = snap.acp || '';
   state.promotions = snap.promotions || [];
@@ -2286,6 +2374,7 @@ function restoreQuote(h) {
   document.getElementById('percentInput').value = snap.percent || 0;
   document.getElementById('directInput').value = snap.direct || 0;
   document.getElementById('monthsInput').value = snap.months || 0;
+  applyDocTabs();
   // mode tabs
   document.querySelectorAll('.mode-tab').forEach(x => x.classList.toggle('active', x.dataset.mode === state.discountMode));
   document.getElementById('percentField').style.display = state.discountMode === 'percent' ? 'block' : 'none';
@@ -2321,6 +2410,7 @@ function cancelEditing() {
 function resetAllSilent() {
   state.selected = [];
   state.percent = 0; state.direct = 0; state.months = 0;
+  state.docType = 'normal';
   state.ddajua = ''; state.acp = '';
   state.discountMode = 'free';
   state.promotions = [];
@@ -2330,6 +2420,7 @@ function resetAllSilent() {
   document.getElementById('percentInput').value = 0;
   document.getElementById('directInput').value = 0;
   document.getElementById('monthsInput').value = 0;
+  applyDocTabs();
   document.getElementById('mentorCustom').value = '';
   document.getElementById('counselorCustom').value = '';
   document.getElementById('mentorCustom').style.display = 'none';
