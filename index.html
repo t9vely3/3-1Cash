@@ -110,7 +110,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-table col.c-drag { width: 3%; }
 .q-table col.c-no { width: 4%; }
 .q-table col.c-sub { width: 14%; }
-.q-table col.c-fee { width: 13%; }
+.q-table col.c-fee { width: 15%; }
 .q-table th, .q-table td { vertical-align: top; word-break: keep-all; overflow-wrap: anywhere; }
 .q-row { cursor: default; transition: background 0.1s; }
 .q-row.clickable { cursor: pointer; }
@@ -124,7 +124,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
 .q-row td.sub { font-weight: 600; color: #0F0F0F; font-size: 13.5px; padding-right: 10px; line-height: 1.45; position: relative; }
 .q-row td.desc { color: #4A4843; font-size: 12px; padding-right: 12px; font-weight: 400; line-height: 1.45; }
 .q-row td.fee { text-align: right; font-variant-numeric: tabular-nums; width: 120px; padding-right: 2px; color: #0F0F0F; font-weight: 600; font-size: 13.5px; }
-.q-row td.fee.free { color: #9C6F00; font-size: 12px; letter-spacing: 0.3px; font-weight: 700; }
+.q-row td.fee.free { color: #9C6F00; font-size: 11px; letter-spacing: 0.2px; font-weight: 700; white-space: nowrap; }
+.q-row td.fee .was { color: #9C2626; font-size: 11px; font-weight: 500; text-decoration: line-through; text-decoration-thickness: 1px; margin-right: 6px; letter-spacing: 0; }
 .q-row.is-free td { background: #FBF9F0; }
 .q-row.is-free td:first-child { box-shadow: inset 3px 0 0 #B8860B; }
 .q-row.is-free td.sub { color: #6B5A2E; }
@@ -360,10 +361,12 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #E8E5DC; color: #0F0
   .quotation .q-row td.no { font-size: 9px !important; }
   .quotation .q-table col.c-no { width: 4%; }
   .quotation .q-table col.c-sub { width: 14%; }
-  .quotation .q-table col.c-fee { width: 12%; }
+  .quotation .q-table col.c-fee { width: 14%; }
   .quotation .q-row td.sub { font-size: 10.5px !important; }
   .quotation .q-row td.desc { font-size: 9px !important; }
   .quotation .q-row td.fee { font-size: 10.5px !important; }
+  .quotation .q-row td.fee.free { font-size: 8.5px !important; }
+  .quotation .q-row td.fee .was { font-size: 8.5px !important; margin-right: 4px !important; }
   .quotation .q-bottom-section { margin-top: 12px !important; }
   .quotation .q-promotions-box { padding: 8px 12px 6px !important; margin-bottom: 8px !important; }
   .quotation .q-promotions-title { font-size: 8.5px !important; margin-bottom: 4px !important; }
@@ -1313,7 +1316,10 @@ function renderPreview() {
     r.items.forEach((it, i) => {
       const num = String(i+1).padStart(2,'0');
       const isFree = state.discountMode === 'free' && it.free;
-      const feeCell = isFree ? `<td class="fee free">무료지원</td>` : `<td class="fee">${fmt(it.course.fee)}</td>`;
+      // 무료 지원 과목은 원래 수강료에 취소선을 긋고 그 옆에 표기한다
+      const feeCell = isFree
+        ? `<td class="fee free">${Number(it.course.fee) > 0 ? `<span class="was">${fmt(it.course.fee)}</span>` : ''}무료지원</td>`
+        : `<td class="fee">${fmt(it.course.fee)}</td>`;
       const lastClass = (i === r.items.length-1 && !r.ddObj) ? 'last' : '';
       const clickable = state.discountMode === 'free' ? 'clickable' : '';
       const freeClass = isFree ? 'is-free' : '';
